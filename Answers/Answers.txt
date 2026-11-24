@@ -1,0 +1,2077 @@
+✅ Core Java 
+ 
+1. What are the differences between HashMap, ConcurrentHashMap, and Hashtable?
+
+ Ans.
+
+Definition: HashMap, ConcurrentHashMap, and Hashtable are classes in Java used to store data in key-value pairs. They are useful for storing and retrieving data efficiently using unique keys.
+
+Difference: HashMap is not thread-safe and is generally used in single-threaded applications. It allows one null key and multiple null values. ConcurrentHashMap is thread-safe and is preferred for multithreaded applications because it allows multiple threads to access the map efficiently. It does not allow null keys or values. Hashtable is also thread-safe, but it is an older class and is generally slower because it uses synchronization on the whole object for its methods. It does not allow null keys or values.
+
+In short: HashMap is not thread-safe, ConcurrentHashMap is thread-safe and efficient for multiple threads, and Hashtable is an older thread-safe class.
+
+2. Explain memory management in Java (Heap, Stack, GC).
+Ans. 
+
+Definition: Memory management in Java is the process of allocating and freeing memory while a program runs. Java manages memory automatically using the JVM (Java Virtual Machine) and Garbage Collector (GC).
+
+Heap Memory: Heap memory is used to store objects and instance variables. It is shared among all threads. The Garbage Collector removes objects that are no longer reachable.
+
+Stack Memory: Stack memory stores method calls, local variables, and references to objects. Each thread has its own stack. Memory is automatically released when a method finishes execution.
+
+Garbage Collection (GC): Garbage Collection is the process of automatically removing objects that are no longer reachable by the program. It helps free heap memory and reduces the need for manual memory management.
+
+In short: Heap stores objects, Stack stores method calls and local variables, and GC automatically cleans up unreachable objects from the heap.
+
+
+3.How does Java handle multithreading?
+Ans. 
+
+Definition: Multithreading in Java is a process of executing multiple threads simultaneously within a single program. It helps improve performance and allows multiple tasks to run concurrently.
+
+How Java handles multithreading: Java handles multithreading using the `Thread` class and the `Runnable` interface. We can create threads by extending the `Thread` class or implementing the `Runnable` interface. The JVM and operating system manage thread execution. Java also provides synchronization to control access to shared resources and prevent data inconsistency.
+
+Example: A program can use one thread to download a file while another thread performs a different task.
+
+In short: Java supports multithreading through the `Thread` class, `Runnable` interface, and synchronization, allowing multiple tasks to execute concurrently.
+
+
+ 4. What is the difference between final, finally, and finalize()?
+Ans. 
+
+Definition: `final`, `finally`, and `finalize()` are three different concepts in Java. They have different purposes and are used in different situations.
+
+Difference: `final` is a keyword used to make a variable constant, prevent method overriding, or prevent class inheritance. `finally` is a block used with `try-catch` to execute important cleanup code, whether an exception occurs or not (with some exceptions). `finalize()` was a method that the Garbage Collector could call before reclaiming an object's memory, but it is deprecated and should not be used in modern Java.
+
+In short: `final` restricts changes, `finally` executes cleanup code, and `finalize()` is an obsolete method associated with garbage collection.
+
+
+5. Explain the SOLID principles.
+
+Ans. 
+
+Definition: SOLID principles are five design principles in Java that help us write clean, maintainable, reusable, and flexible code. They make software easier to understand, test, and modify.
+
+S – Single Responsibility Principle: A class should have only one responsibility, meaning it should have only one main reason to change.
+
+O – Open/Closed Principle: A class should be open for extension but closed for modification. We should be able to add new features without changing existing code unnecessarily.
+
+L – Liskov Substitution Principle: A child class should be able to replace its parent class without breaking the program.
+
+I – Interface Segregation Principle: A class should not be forced to implement methods it does not need. It is better to create small, specific interfaces.
+
+D – Dependency Inversion Principle: High-level classes should depend on abstractions (interfaces), not directly on low-level classes (concrete implementations).
+
+In short: SOLID principles help developers write code that is easy to maintain, extend, reuse, and test.
+
+
+ 6. What are Lambda Expressions and Functional Interfaces in Java 8?
+Ans. 
+
+Lambda Expression:
+
+A Lambda Expression is a short way to write a method without creating a separate method or class.
+
+It helps us write clean and simple code.
+
+Syntax:
+
+
+
+(parameters) -> { statements; }
+
+Functional Interface:
+
+A Functional Interface is an interface that contains only one abstract method.
+
+It can have multiple default and static methods, but only one abstract method.
+
+We can use the @FunctionalInterface annotation to define it.
+
+Lambda expressions provide the implementation of the abstract method of a Functional Interface.
+
+Java automatically understands which method needs to be implemented.
+
+The compiler converts the lambda expression into an implementation using Java's invokedynamic mechanism.
+
+We don't need to create a separate class to implement the interface.
+
+One-line interview answer:
+
+"Lambda Expressions in Java 8 provide a simple way to implement Functional Interfaces without writing lengthy anonymous inner classes. They make code shorter, cleaner, and easier to maintain."
+
+
+ 7. Explain JVM memory management, including Heap, Stack, and Garbage Collection.
+Ans. 
+
+1. Definition
+JVM Memory Management is the process of allocating and managing memory while a Java program runs.
+
+JVM mainly uses Heap, Stack, and Garbage Collection to manage memory.
+
+2. How it works internally
+Heap Memory: Stores objects and instance variables. Shared by all threads.
+
+Stack Memory: Stores method calls, local variables, and references. Each thread has its own stack.
+
+Garbage Collection (GC): Automatically removes objects that are no longer reachable.
+
+
+Example :
+
+public class Main {
+    public static void main(String[] args) {
+
+        int a = 10;             // Stack memory
+
+        Student s = new Student(); // Object in Heap
+
+        s = null;               // Object may become
+                                // eligible for GC
+    }
+}
+
+class Student {
+    String name;
+}
+
+One-line interview answer:
+
+"JVM manages memory using Heap and Stack. Heap stores objects, Stack manages method execution and local variables, and Garbage Collection automatically removes unreachable objects to free memory."
+
+8. What is Deadlock in Java? How can we prevent it?
+Ans. 
+
+1. Definition
+Deadlock is a situation where two or more threads wait for each other to release resources, and none of them can continue execution.
+
+2. How it works internally
+Thread 1 locks Resource A and waits for Resource B.
+
+Thread 2 locks Resource B and waits for Resource A.
+
+Both threads wait forever.
+
+This situation is called Deadlock.
+
+Example :
+
+public class Main {
+    public static void main(String[] args) {
+
+        final Object A = new Object();
+        final Object B = new Object();
+
+        Thread t1 = new Thread(() -> {
+            synchronized (A) {
+                synchronized (B) {
+                    System.out.println("Thread 1");
+                }
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            synchronized (B) {
+                synchronized (A) {
+                    System.out.println("Thread 2");
+                }
+            }
+        });
+
+        t1.start();
+        t2.start();
+    }
+}
+
+One-line interview answer:
+
+"Deadlock in Java occurs when two or more threads wait for each other to release locks, so none can proceed. We can prevent it by acquiring locks in a fixed order, avoiding nested locks, and using tryLock() with timeout."
+
+
+ 9. What is the difference between synchronized and volatile?
+Ans. 
+
+1. Definition
+synchronized: Used to control access to a shared resource by allowing only one thread at a time.
+
+volatile: Ensures that changes made by one thread are visible to other threads.
+
+2. How it works internally
+synchronized: Uses locking. Only one thread can execute the synchronized block at a time.
+
+volatile: Does not use locking. It ensures visibility of updated values across threads.
+
+3. Code Example
+synchronized:
+
+
+
+synchronized void increment() {
+    count++;
+}
+volatile:
+
+
+
+volatile boolean flag = true;
+
+
+4. Real-world Use Case
+synchronized: When multiple threads update a bank account balance.
+
+volatile: When one thread changes a flag and other threads need to know its latest value.
+
+One-line interview answer:
+
+"synchronized is used to allow only one thread at a time to access a critical section, whereas volatile ensures that changes to a variable are visible to all threads."
+
+
+10. What is the difference between Thread and Runnable?
+Ans. 
+
+1. Definition
+Thread: A class in Java used to create and manage threads.
+
+Runnable: An interface used to define the task that a thread will execute.
+
+2. How it works internally
+Thread: We extend the Thread class and override its run() method.
+
+Runnable: We implement the Runnable interface and pass its object to a Thread.
+
+One-line interview answer:
+
+"Thread is a class used to create threads, whereas Runnable is an interface used to define the task executed by a thread. Runnable is generally preferred because it supports better code reusability and flexibility."
+
+ 11. What is the difference between Comparable and Comparator?
+Ans.
+
+1. Definition
+Comparable: Used to define the default sorting order of objects.
+
+Comparator: Used to define custom sorting orders of objects.
+
+2. How it works internally
+Comparable: Uses the compareTo() method.
+
+Comparator: Uses the compare() method.
+
+3. Code Example
+Comparable:
+
+
+
+class Student implements Comparable<Student> {
+    int age;
+
+    public int compareTo(Student s) {
+        return this.age - s.age;
+    }
+}
+
+
+Interview Tip
+Remember:
+
+Comparable = Default sorting.
+
+Comparator = Custom sorting.
+
+One-line interview answer:
+
+"Comparable is used for default sorting using the compareTo() method, whereas Comparator is used for custom sorting using the compare() method."
+
+ 12. What is the difference between HashSet, LinkedHashSet, and TreeSet?. 
+Ans.
+
+1. Definition
+All three are classes in Java used to store unique elements (no duplicates).
+
+HashSet: Stores unique elements without maintaining insertion order.
+
+LinkedHashSet: Stores unique elements and maintains insertion order.
+
+TreeSet: Stores unique elements in sorted order.
+
+2. How it works internally
+HashSet: Uses HashMap internally.
+
+LinkedHashSet: Uses HashMap with a linked list to maintain insertion order.
+
+TreeSet: Uses TreeMap internally (Red-Black Tree).
+
+4. Real-world Use Case
+HashSet: Checking unique email IDs.
+
+LinkedHashSet: Maintaining unique items in insertion order.
+
+TreeSet: Storing student marks in sorted order.
+
+HashSet does not maintain order, LinkedHashSet maintains insertion order, and TreeSet stores elements in sorted order. All three store unique elements.
+
+13. How does HashMap work internally in Java?
+Ans.
+
+1. Definition
+HashMap is a class in Java that stores data in Key-Value pairs.
+
+Keys must be unique.
+
+Values can be duplicated.
+
+It allows one null key and multiple null values.
+
+It does not maintain insertion order.
+
+2. How it works internally
+When we insert a key-value pair, HashMap calculates the hash code of the key.
+
+It uses the hash to find the bucket (index).
+
+The key-value pair is stored in that bucket.
+
+If two keys have the same bucket index, a collision occurs.
+
+Java handles collisions using a linked list or a balanced tree (when required).
+
+While retrieving data, HashMap uses the key's hash and equals() method to find the correct value.
+
+
+ Code Example
+
+java
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        HashMap<Integer, String> map = new HashMap<>();
+
+        map.put(1, "Rahul");
+        map.put(2, "Amit");
+        map.put(3, "Priya");
+
+        System.out.println(map.get(2));
+    }
+}
+
+
+Output: Amit
+
+One-line interview answer:
+
+"HashMap internally uses an array of buckets. It calculates the hash code of a key to find the bucket and uses equals() to identify the correct key. If collisions occur, it handles them using Linked Lists or Balanced Trees."
+
+
+14. What is the difference between ArrayList and LinkedList?
+
+Ans. 
+
+1. Definition
+ArrayList: Uses a dynamic array to store elements.
+
+LinkedList: Uses a doubly linked list to store elements.
+
+2. How it works internally
+ArrayList: Stores elements in a continuous array. Searching is fast, but inserting or deleting elements in the middle requires shifting elements.
+
+LinkedList: Stores elements as nodes. Each node contains data and links to the previous and next nodes.
+
+ Real-world Use Case
+ArrayList: When we frequently search or access employee records.
+
+LinkedList: When we frequently add or remove elements at the beginning or end.
+
+
+One-line interview answer:
+
+"ArrayList uses a dynamic array and provides fast searching, whereas LinkedList uses a doubly linked list and is useful for frequent insertions and deletions at the beginning or end."
+
+
+20. What is the difference between String, StringBuilder, and StringBuffer?
+Ans.
+
+1. Definition
+String: Immutable (cannot be changed once created).
+
+StringBuilder: Mutable (can be changed) and not thread-safe.
+
+StringBuffer: Mutable (can be changed) and thread-safe.
+
+2. How it works internally
+String: Every modification creates a new String object.
+
+StringBuilder: Modifies the same object without creating a new object for every change.
+
+StringBuffer: Similar to StringBuilder, but its methods are synchronized for thread safety.
+
+3. Code Example
+
+java
+public class Main {
+    public static void main(String[] args) {
+
+        // String
+        String s = "Hello";
+        s = s + " Java";
+
+        // StringBuilder
+        StringBuilder sb = new StringBuilder("Hello");
+        sb.append(" Java");
+
+        // StringBuffer
+        StringBuffer sf = new StringBuffer("Hello");
+        sf.append(" Java");
+
+        System.out.println(s);
+        System.out.println(sb);
+        System.out.println(sf);
+    }
+}
+Output:
+
+
+text
+Hello Java
+Hello Java
+Hello Java
+4. Real-world Use Case
+String: When storing names, email IDs, or fixed text.
+
+StringBuilder: When frequently modifying text, such as building a large message.
+
+StringBuffer: When multiple threads modify the same string object.
+
+
+Interview Tip
+Remember:
+
+String = Immutable
+
+StringBuilder = Mutable + Fast
+
+StringBuffer = Mutable + Thread-safe
+
+One-line interview answer:
+
+"String is immutable, StringBuilder is mutable and not thread-safe, while StringBuffer is mutable and thread-safe because its methods are synchronized."
+
+
+21. Why is String immutable in Java? What are the advantages of String immutability?
+Ans. 
+
+1. Definition
+String is immutable in Java because once a String object is created, its value cannot be changed.
+
+If we modify a String, Java creates a new object instead of changing the existing object.
+
+2. How it works internally
+String objects are stored in the String Pool when created as literals.
+
+Once created, their value cannot be modified.
+
+If we change a String, a new String object is created.
+
+The original String remains unchanged.
+
+3. Code Example
+
+java
+public class Main {
+    public static void main(String[] args) {
+
+        String s = "Hello";
+
+        s.concat(" Java");
+
+        System.out.println(s);
+
+        s = s.concat(" Java");
+
+        System.out.println(s);
+    }
+}
+Output:
+
+
+text
+Hello
+Hello Java
+
+Interview Tip
+Remember:
+
+String is immutable.
+
+Modification creates a new object.
+
+Original object remains unchanged.
+
+One-line interview answer:
+
+"String is immutable in Java for security, thread safety, and efficient String Pool management. Once created, its value cannot be changed; any modification creates a new String object."
+
+22. What are the main features of Java? Why is Java platform-independent?
+Ans.
+
+1. Definition
+Java is a high-level, object-oriented programming language used to develop web, mobile, and enterprise applications.
+
+2. Main Features of Java
+Simple: Easy to learn and use.
+
+Object-Oriented: Based on classes and objects.
+
+Platform Independent: Runs on different operating systems.
+
+Secure: Provides security features.
+
+Robust: Supports exception handling and memory management.
+
+Multithreading: Supports multiple tasks at the same time.
+
+Portable: Java code can run on different platforms.
+
+High Performance: Uses JIT compilation for better performance.
+
+3. Why is Java Platform-Independent?
+Java is platform-independent because Java code is compiled into Bytecode, which can run on any operating system having a compatible JVM.
+
+
+One-line interview answer:
+
+"Java is platform-independent because its compiler converts source code into Bytecode, which can run on any operating system having a compatible JVM. This is why Java follows Write Once, Run Anywhere (WORA)."
+
+
+=================================================================================
+
+
+
+✅ Spring Boot & Spring Framework
+
+ 1. How does Spring Dependency Injection work internally?
+Ans. 
+
+Definition: Dependency Injection (DI) is a feature of Spring in which the Spring container creates objects and provides them with the objects they depend on, instead of creating those objects manually.
+
+How it works internally: When a Spring application starts, the IoC container reads the configuration and identifies the beans using annotations such as `@Component`, `@Service`, and `@Repository`, or through `@Bean` methods. Spring creates these beans, identifies their dependencies, and injects the required objects using constructor, setter, or field injection. After dependency injection, Spring manages the bean lifecycle and makes the beans available wherever they are needed.
+
+In short: Spring DI works by identifying beans, creating objects, injecting their dependencies, and managing their lifecycle through the IoC container.
+
+
+ 2. Difference between @Component, @Service, @Repository, and @Controller.
+Ans. 
+
+Definition: @Component, @Service, @Repository, and @Controller are Spring annotations used to mark classes as Spring-managed beans. Spring detects these classes through component scanning and manages their objects.
+
+Difference: @Component is a general-purpose annotation used for any Spring-managed class. @Service is used for the service layer, where business logic is written. @Repository is used for the data access layer, where database operations are performed, and it also supports translating persistence exceptions into Spring's data access exceptions. @Controller is used in the presentation layer to handle web requests and return views. In REST APIs, @RestController is commonly used to return data directly, such as JSON.
+
+In short: @Component is general, @Service handles business logic, @Repository handles database operations, and @Controller handles web requests.
+
+3. What is the Spring Bean lifecycle?
+Ans. 
+
+Definition: The Spring Bean lifecycle is the process through which Spring creates, initializes, manages, and destroys a bean (object) inside the Spring IoC container.
+
+How it works: First, Spring creates the bean object. Then, it injects the required dependencies. After that, Spring performs initialization callbacks, such as `@PostConstruct`, to execute setup logic. The bean is then ready to be used by the application. When the Spring container shuts down, Spring calls the destruction callback, such as `@PreDestroy`, to perform cleanup operations.
+
+In short: The Spring Bean lifecycle consists of bean creation, dependency injection, initialization, usage, and destruction.
+
+4. What is the use of @Transactional? What are the pitfalls?
+Ans. 
+
+Definition: @Transactional is a Spring annotation used to manage database transactions automatically. It ensures that a group of database operations is treated as a single unit of work. If all operations succeed, the transaction is committed; if a failure occurs, the transaction can be rolled back.
+
+How it works: When we apply @Transactional to a method, Spring starts a transaction before the method executes. If the method completes successfully, Spring commits the transaction. If a configured rollback exception occurs (by default, unchecked exceptions such as RuntimeException), Spring rolls back the transaction.
+
+In short: @Transactional ensures database consistency by providing automatic commit and rollback functionality. However, we should be careful about self-invocation, exception handling, transaction propagation, and long-running transactions.
+
+
+ 5. Explain how Spring Boot auto-configuration works.
+Ans. 
+
+Definition: Spring Boot auto-configuration is a feature that automatically configures the application based on the dependencies available in the classpath, existing beans, and application properties. It reduces the need for manual configuration.
+
+How it works: When we use the @SpringBootApplication annotation, it internally includes @EnableAutoConfiguration, which enables Spring Boot's auto-configuration mechanism. Spring Boot checks the dependencies available in the classpath and identifies which configurations are required. Based on certain conditions, it automatically creates and registers the required beans in the Spring IoC container.
+
+For example, if we add the Spring Web dependency, Spring Boot automatically configures the embedded Tomcat server and Spring MVC components. Similarly, if we add the Spring Data JPA dependency, it can configure the required JPA components based on the available database configuration.
+
+In short: Spring Boot auto-configuration automatically configures beans and application components based on dependencies and conditions, reducing boilerplate code and making application development faster.
+
+
+ 6. How to handle exceptions in Spring REST APIs?
+ • @ControllerAdvice, @ExceptionHandler.
+
+ Ans. 
+
+ Log in
+Sign up for free
+You said:
+you have to  given answer in this format. 
+
+3. What is the Spring Bean lifecycle?
+Ans. 
+
+Definition: The Spring Bean lifecycle is the process through which Spring creates, initializes, manages, and destroys a bean (object) inside the Spring IoC container.
+
+How it works: First, Spring creates the bean object. Then, it injects the required dependencies. After that, Spring performs initialization callbacks, such as `@PostConstruct`, to execute setup logic. The bean is then ready to be used by the application. When the Spring container shuts down, Spring calls the destruction callback, such as `@PreDestroy`, to perform cleanup operations.
+
+In short: The Spring Bean lifecycle consists of bean creation, dependency injection, initialization, usage, and destruction.
+
+4. What is the use of @Transactional? What are the pitfalls?
+Ans.
+
+ChatGPT said:
+4. What is the use of @Transactional? What are the pitfalls?
+
+Ans.
+
+Definition: @Transactional is a Spring annotation used to manage database transactions automatically. It ensures that a group of database operations is treated as a single unit of work. If all operations succeed, the transaction is committed; if a failure occurs, the transaction can be rolled back.
+
+How it works: When we apply @Transactional to a method, Spring starts a transaction before the method executes. If the method completes successfully, Spring commits the transaction. If a configured rollback exception occurs (by default, unchecked exceptions such as RuntimeException), Spring rolls back the transaction.
+
+Common pitfalls:
+
+Self-invocation: Calling a @Transactional method from another method within the same class may bypass the Spring proxy, so transaction management may not work.
+
+Checked exceptions: By default, checked exceptions do not trigger rollback.
+
+Private methods: @Transactional generally does not work as expected on private methods when using proxy-based transaction management.
+
+Long-running transactions: Keeping transactions open for too long can cause database locks and performance issues.
+
+Wrong propagation: Incorrect transaction propagation settings can lead to unexpected transaction behavior.
+
+External API calls: Database transactions do not automatically roll back external API calls or other external operations.
+
+In short: @Transactional ensures database consistency by providing automatic commit and rollback functionality. However, we should be careful about self-invocation, exception handling, transaction propagation, and long-running transactions.
+
+
+Log in for a more personalized ChatGPT experience.
+
+
+Log in
+
+Sign up for free
+You said:
+5. Explain how Spring Boot auto-configuration works.
+
+ChatGPT said:
+5. Explain how Spring Boot auto-configuration works.
+
+Ans.
+
+Definition: Spring Boot auto-configuration is a feature that automatically configures the application based on the dependencies available in the classpath, existing beans, and application properties. It reduces the need for manual configuration.
+
+How it works: When we use the @SpringBootApplication annotation, it internally includes @EnableAutoConfiguration, which enables Spring Boot's auto-configuration mechanism. Spring Boot checks the dependencies available in the classpath and identifies which configurations are required. Based on certain conditions, it automatically creates and registers the required beans in the Spring IoC container.
+
+For example, if we add the Spring Web dependency, Spring Boot automatically configures the embedded Tomcat server and Spring MVC components. Similarly, if we add the Spring Data JPA dependency, it can configure the required JPA components based on the available database configuration.
+
+Common annotations used in auto-configuration:
+
+@ConditionalOnClass: Configures a bean if a particular class is available in the classpath.
+
+@ConditionalOnMissingBean: Configures a bean only if it does not already exist.
+
+@ConditionalOnProperty: Configures a bean based on an application property.
+
+@ConditionalOnBean: Configures a bean if a particular bean already exists.
+
+In short: Spring Boot auto-configuration automatically configures beans and application components based on dependencies and conditions, reducing boilerplate code and making application development faster.
+
+
+You said:
+6. How to handle exceptions in Spring REST APIs?
+ • @ControllerAdvice, @ExceptionHandler.
+
+ChatGPT said:
+6. How to handle exceptions in Spring REST APIs? Explain @ControllerAdvice and @ExceptionHandler.
+
+Ans.
+
+Definition: Exception handling in Spring REST APIs is the process of handling errors gracefully and returning meaningful error responses to the client instead of exposing internal application errors.
+
+Spring provides two important annotations for global exception handling: @ControllerAdvice and @ExceptionHandler.
+
+How it works:
+
+@ExceptionHandler: This annotation is used to handle specific exceptions in a controller or globally through a @ControllerAdvice class.
+
+@ControllerAdvice: This annotation is used to handle exceptions globally across multiple controllers, avoiding duplicate exception-handling code.
+
+When an exception occurs in a REST API, Spring searches for the appropriate exception handler.
+
+The handler processes the exception and returns a meaningful error response with the appropriate HTTP status code.
+
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handleNotFound(
+            ResourceNotFoundException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGeneralException(
+            Exception ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Something went wrong");
+    }
+}
+
+
+Common HTTP status codes used in exception handling:
+
+400 BAD_REQUEST – Invalid client request.
+
+401 UNAUTHORIZED – Authentication is required or has failed.
+
+403 FORBIDDEN – Access is denied.
+
+404 NOT_FOUND – Requested resource does not exist.
+
+500 INTERNAL_SERVER_ERROR – Unexpected server-side error.
+
+In short: @ExceptionHandler handles specific exceptions, while @ControllerAdvice provides centralized exception handling across multiple controllers. Together, they help build clean, consistent, and maintainable REST APIs.
+
+
+ 7. What is the difference between RestTemplate, WebClient, and FeignClient?
+Ans. 
+
+Definition: RestTemplate, WebClient, and FeignClient are Spring-based tools used to communicate with external REST APIs or other microservices. They differ in their programming style, performance, and ease of use.
+
+How they work:
+
+RestTemplate: It is a synchronous and blocking HTTP client. It waits for the server response before executing the next line of code. It is commonly used in traditional Spring applications. It is now considered a legacy approach for new development.
+
+WebClient: It is a modern, non-blocking and reactive HTTP client provided by Spring WebFlux. It supports asynchronous communication and can handle multiple requests efficiently without blocking threads.
+
+FeignClient: It is a declarative HTTP client provided by Spring Cloud OpenFeign. We just define an interface with annotations, and Spring generates the implementation to communicate with the external service. It reduces boilerplate code.
+
+
+Interview Tip: In modern Spring Boot applications, WebClient is preferred for reactive and non-blocking communication, while FeignClient is commonly used for simple inter-service communication in Spring Cloud microservices.
+
+
+
+8. What is the difference between Spring Boot and Spring MVC?
+Ans. 
+
+Definition: Spring MVC and Spring Boot are part of the Spring ecosystem, but they serve different purposes. Spring MVC is a web framework used to develop web applications and REST APIs, whereas Spring Boot simplifies the development and configuration of Spring-based applications by providing auto-configuration and embedded servers.
+
+How they work:
+
+Spring MVC: It is a web framework based on the Model-View-Controller (MVC) architecture. It handles HTTP requests and responses using components like DispatcherServlet, Controller, Model, and View. We generally need to configure dependencies and other settings manually.
+
+Spring Boot: It is built on top of the Spring Framework and simplifies application development. It provides features like auto-configuration, starter dependencies, and embedded servers such as Tomcat. We can create and run applications with minimal configuration.
+
+
+Interview Tip: Spring MVC is used to handle web requests and build REST APIs, whereas Spring Boot simplifies the overall application setup and development. We can use Spring MVC inside a Spring Boot application. In fact, most Spring Boot REST APIs use Spring MVC internally.
+
+
+9. What is the difference between @Bean and @Component?
+Ans. 
+
+Definition: Both @Bean and @Component are used to register objects as Spring Beans inside the Spring IoC container. The main difference is that @Component is used at the class level, whereas @Bean is used at the method level inside a configuration class.
+
+How they work:
+
+@Component: It is a class-level annotation. When we annotate a class with @Component, Spring automatically detects it during component scanning and creates its bean inside the Spring IoC container.
+
+Example:
+
+
+java
+@Component
+public class EmployeeService {
+
+    public void getEmployee() {
+        System.out.println("Employee details");
+    }
+}
+@Bean: It is a method-level annotation used inside a class annotated with @Configuration. The object returned by the method is registered as a Spring Bean inside the IoC container. It is mainly useful when we want to create and configure objects manually, especially for third-party classes that we cannot annotate with @Component.
+
+Example:
+
+
+java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
+}
+
+
+Interview Tip: Use @Component when you want Spring to automatically detect and manage your class as a bean. Use @Bean when you want explicit control over object creation and configuration, especially for third-party classes.
+
+Important: @Service, @Repository, and @Controller are specialized forms of @Component, whereas @Bean is a separate annotation used to register objects through configuration methods.
+
+
+10. What is the difference between @Autowired, @Qualifier, and @Primary?
+Ans. 
+
+Definition: @Autowired, @Qualifier, and @Primary are Spring annotations used for Dependency Injection. They help Spring identify which bean should be injected into a class when creating objects and resolving dependencies.
+
+How they work:
+
+@Autowired: It is used to inject dependencies automatically. Spring searches for a matching bean in the IoC container and injects it into the required class. By default, it resolves dependencies primarily by type.
+
+Example:
+
+
+
+@Service
+public class EmployeeService {
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+}
+Here, Spring automatically injects the EmployeeRepository bean into EmployeeService.
+
+@Qualifier: It is used when multiple beans of the same type are available in the Spring container. It helps us specify exactly which bean should be injected.
+
+Example:
+
+
+
+@Component("emailService")
+public class EmailService implements MessageService {
+}
+
+@Component("smsService")
+public class SmsService implements MessageService {
+}
+
+@Service
+public class NotificationService {
+
+    @Autowired
+    @Qualifier("emailService")
+    private MessageService messageService;
+
+}
+Here, two beans implement the same interface. Using @Qualifier("emailService"), we tell Spring to inject the EmailService bean.
+
+@Primary: It is used when multiple beans of the same type are available. It tells Spring which bean should be preferred by default when no specific @Qualifier is provided.
+
+Example:
+
+
+@Component
+@Primary
+public class EmailService implements MessageService {
+}
+
+@Component
+public class SmsService implements MessageService {
+}
+
+@Service
+public class NotificationService {
+
+    @Autowired
+    private MessageService messageService;
+
+}
+Here, Spring injects EmailService by default because it is marked with @Primary.
+
+Interview Tip: @Autowired is used for automatic dependency injection, @Qualifier is used to resolve ambiguity by specifying a bean name, and @Primary is used to define the default bean when multiple beans of the same type exist.
+
+Important: If both @Primary and @Qualifier are used for the same injection point, @Qualifier takes precedence over @Primary. Also, constructor injection is generally preferred over field injection in modern Spring Boot applications.
+
+
+11. What are Spring Boot Profiles? How do you use them?
+Ans. 
+
+Definition: Spring Boot Profiles are used to maintain different configurations for different environments, such as Development (Dev), Testing (QA), and Production (Prod). They allow us to use different database configurations, server settings, and other properties without changing the application code.
+
+How they work:
+
+Spring Boot provides the @Profile annotation and profile-specific configuration files to manage environment-based configurations.
+
+1. Profile-specific configuration files:
+
+We can create separate configuration files for different environments.
+
+Example:
+
+
+text
+application.properties
+application-dev.properties
+application-qa.properties
+application-prod.properties
+
+
+Interview Tip: Spring Boot Profiles help us maintain environment-specific configurations. For example, during development, we can connect to a local database, while in production, we can connect to a production database simply by changing the active profile without modifying the application code.
+
+Important: Never store production database passwords or sensitive credentials directly in profile configuration files committed to Git. Use environment variables or a secure secrets manager instead.
+
+
+12. What is the difference between application.properties and application.yml?
+Ans. 
+
+Definition: Both application.properties and application.yml are configuration files used in Spring Boot applications to define application settings such as server port, database configuration, logging levels, and active profiles. The main difference is their syntax and structure.
+
+How they work:
+
+1. application.properties: It uses a simple key-value format to define application configurations. Each property is generally written on a separate line using the key=value format.
+
+Example:
+
+
+server.port=8081
+
+
+2. application.yml: It uses YAML (YAML Ain't Markup Language) format to define configurations. It uses indentation and a hierarchical structure, which makes complex configurations easier to read and maintain.
+
+Example:
+
+
+server:
+  port: 8081
+
+
+  Interview Tip: Both files serve the same purpose in Spring Boot. For simple configurations, application.properties is easy to use, while application.yml is generally preferred for complex and hierarchical configurations because it provides better readability.
+
+Important: We should avoid defining the same configuration property in both files because it can create confusion about which value will be applied. Spring Boot supports both formats.
+
+13. What is Spring Boot Actuator?
+Ans. 
+
+Definition: Spring Boot Actuator is a Spring Boot module that provides production-ready features to monitor and manage our application. It helps us check application health, view application metrics, monitor performance, and understand the internal status of the application without writing additional monitoring code.
+
+How it works:
+
+Spring Boot Actuator provides several built-in endpoints that expose application information through HTTP or JMX.
+
+1. Adding Actuator Dependency:
+
+First, we need to add the Actuator dependency in our pom.xml file.
+
+
+xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+2. Enabling Actuator Endpoints:
+
+By default, Spring Boot Actuator exposes only a limited set of endpoints over HTTP. We can configure additional endpoints in application.properties.
+
+
+
+management.endpoints.web.exposure.include=health,info,metrics,beans
+
+
+Interview Tip: Spring Boot Actuator is mainly used for application monitoring and management in production environments. For example, if an application goes down or a database connection fails, we can use the health endpoint to identify the application's health status.
+
+Important: Actuator endpoints like /actuator/env, /actuator/beans, and /actuator/heapdump may expose sensitive information. We should expose only the required endpoints and secure them using Spring Security or appropriate access controls.
+
+
+14. How does Spring Boot handle embedded servers?
+Ans. 
+
+Definition: Spring Boot supports embedded servers, which means we don't need to install or configure an external web server separately to run our web applications. It provides built-in server support, such as Tomcat, Jetty, and Undertow, allowing us to run applications as standalone Java applications.
+
+
+How they work:
+
+1. Embedded Server: When we add the spring-boot-starter-web dependency to our Spring Boot application, it automatically includes an embedded Tomcat server by default.
+
+2. Automatic Configuration: When the application starts, Spring Boot automatically configures the embedded server based on the available dependencies and application properties.
+
+3. Application Startup: When we run the Spring Boot application using the main() method, Spring Boot starts the embedded server and initializes the Spring ApplicationContext.
+
+4. Handling Requests: Once the embedded server starts, it listens on the configured port (8080 by default) and handles incoming HTTP requests through Spring MVC's DispatcherServlet.
+
+Example:
+
+Main application class:
+
+
+java
+@SpringBootApplication
+public class EmployeeApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(EmployeeApplication.class, args);
+    }
+}
+Here, SpringApplication.run() starts the Spring application and automatically starts the embedded Tomcat server.
+
+Changing the Default Port:
+
+We can change the default server port using application.properties.
+
+
+server.port=9090
+Now our application will run on port 9090 instead of the default port 8080.
+
+
+Interview Tip: Spring Boot uses an embedded Tomcat server by default when we use spring-boot-starter-web. When we execute the application using SpringApplication.run(), the embedded server starts automatically, and the application becomes accessible through its configured port.
+
+
+15. What is the difference between CommandLineRunner and ApplicationRunner?
+Ans. 
+
+Definition: Both CommandLineRunner and ApplicationRunner are Spring Boot interfaces used to execute code automatically after the Spring application context has been initialized and before the application is considered fully started. They are commonly used to perform startup tasks such as loading initial data, initializing configurations, and executing database operations.
+
+
+Interview Tip: Both interfaces execute automatically during Spring Boot application startup. The main difference is that CommandLineRunner receives arguments as a String array, whereas ApplicationRunner receives an ApplicationArguments object, which provides convenient methods to access parsed arguments.
+
+Important: If multiple CommandLineRunner or ApplicationRunner beans are present, we can use the @Order annotation or implement Ordered to control their execution order. By default, the execution order is not guaranteed.
+
+16. What is the difference between Filter, Interceptor, and AOP?
+Ans. 
+
+Log in
+Sign up for free
+You said:
+Now I am starting  Spring boot questions and answers , and I have completed these questions.
+
+✅ Spring Boot & Spring Framework
+ 1. How does Spring Dependency Injection work internally?
+ 2. Difference between @Component, @Service, @Repository, and @Controller.
+ 3. What is the Spring Bean lifecycle?
+ 4. What is the use of @Transactional? What are the pitfalls?
+ 5. Explain how Spring Boot auto-configuration works.
+ 6. How to handle exceptions in Spring REST APIs?
+ • @ControllerAdvice, @ExceptionHandler.
+ 7. What is the difference between RestTemplate, WebClient, and FeignClient?
+
+
+and the answer form will be this type below
+
+ 7. What is the difference between RestTemplate, WebClient, and FeignClient?
+Ans. 
+
+Definition: RestTemplate, WebClient, and FeignClient are Spring-based tools used to communicate with external REST APIs or other microservices. They differ in their programming style, performance, and ease of use.
+
+How they work:
+
+RestTemplate: It is a synchronous and blocking HTTP client. It waits for the server response before executing the next line of code. It is commonly used in traditional Spring applications. It is now considered a legacy approach for new development.
+
+WebClient: It is a modern, non-blocking and reactive HTTP client provided by Spring WebFlux. It supports asynchronous communication and can handle multiple requests efficiently without blocking threads.
+
+FeignClient: It is a declarative HTTP client provided by Spring Cloud OpenFeign. We just define an interface with annotations, and Spring generates the implementation to communicate with the external service. It reduces boilerplate code.
+
+
+Interview Tip: In modern Spring Boot applications, WebClient is preferred for reactive and non-blocking communication, while FeignClient is commonly used for simple inter-service communication in Spring Cloud microservices.
+
+ChatGPT said:
+Great! We will continue your Spring Boot & Spring Framework Interview Questions and Answers series.
+
+I'll follow the same answer format that you shared so your notes remain consistent and easy to revise before interviews.
+
+Format I'll follow for every question
+Question: Clear interview question.
+
+Ans.
+
+Definition: Simple and interview-friendly explanation.
+
+How it works: Internal working, important concepts, and practical explanation.
+
+Interview Tip: A short, important point to remember during interviews.
+
+Next Spring Boot interview questions
+Since you have completed questions 1–7, I recommend continuing with these:
+
+No.
+
+Interview question
+
+8
+
+What is the difference between Spring Boot and Spring MVC?
+
+9
+
+What is the difference between @Bean and @Component?
+
+10
+
+What is the difference between @Autowired, @Qualifier, and @Primary?
+
+11
+
+What are Spring Boot Profiles? How do you use them?
+
+12
+
+What is the difference between application.properties and application.yml?
+
+13
+
+What is Spring Boot Actuator?
+
+14
+
+How does Spring Boot handle embedded servers?
+
+15
+
+What is the difference between CommandLineRunner and ApplicationRunner?
+
+16
+
+What is the difference between Filter, Interceptor, and AOP?
+
+17
+
+How does Spring Security work internally?
+
+18
+
+What is JWT authentication, and how do you implement it in Spring Boot?
+
+19
+
+How do you implement pagination and sorting in Spring Boot?
+
+20
+
+How do you validate request data using @Valid and @Validated?
+
+My suggestion: We'll cover these questions one by one, starting from Question 8.
+
+I'll keep the answers:
+
+Simple English, suitable for interviews.
+
+Technically accurate, with internal working where important.
+
+Detailed enough to explain confidently to an interviewer.
+
+With practical examples wherever necessary.
+
+With a short Interview Tip at the end.
+
+Let's continue with Question 8: What is the difference between Spring Boot and Spring MVC?
+
+
+You said:
+8. What is the difference between Spring Boot and Spring MVC?
+
+ChatGPT said:
+8. What is the difference between Spring Boot and Spring MVC?
+
+Ans.
+
+Definition: Spring MVC and Spring Boot are part of the Spring ecosystem, but they serve different purposes. Spring MVC is a web framework used to develop web applications and REST APIs, whereas Spring Boot simplifies the development and configuration of Spring-based applications by providing auto-configuration and embedded servers.
+
+How they work:
+
+Spring MVC: It is a web framework based on the Model-View-Controller (MVC) architecture. It handles HTTP requests and responses using components like DispatcherServlet, Controller, Model, and View. We generally need to configure dependencies and other settings manually.
+
+Spring Boot: It is built on top of the Spring Framework and simplifies application development. It provides features like auto-configuration, starter dependencies, and embedded servers such as Tomcat. We can create and run applications with minimal configuration.
+
+Key Differences:
+
+Spring MVC
+
+Spring Boot
+
+It is a web framework.
+
+It is a framework that simplifies Spring application development.
+
+Mainly used to develop web applications and REST APIs.
+
+Used to build standalone applications, REST APIs, and microservices.
+
+Requires more manual configuration.
+
+Provides auto-configuration.
+
+Usually requires an external server deployment or additional server setup.
+
+Supports embedded servers like Tomcat.
+
+Dependency management is generally more manual.
+
+Provides starter dependencies.
+
+Interview Tip: Spring MVC is used to handle web requests and build REST APIs, whereas Spring Boot simplifies the overall application setup and development. We can use Spring MVC inside a Spring Boot application. In fact, most Spring Boot REST APIs use Spring MVC internally.
+
+
+You said:
+9. What is the difference between @Bean and @Component?
+
+ChatGPT said:
+9. What is the difference between @Bean and @Component?
+
+Ans.
+
+Definition: Both @Bean and @Component are used to register objects as Spring Beans inside the Spring IoC container. The main difference is that @Component is used at the class level, whereas @Bean is used at the method level inside a configuration class.
+
+How they work:
+
+@Component: It is a class-level annotation. When we annotate a class with @Component, Spring automatically detects it during component scanning and creates its bean inside the Spring IoC container.
+
+Example:
+
+
+java
+@Component
+public class EmployeeService {
+
+    public void getEmployee() {
+        System.out.println("Employee details");
+    }
+}
+@Bean: It is a method-level annotation used inside a class annotated with @Configuration. The object returned by the method is registered as a Spring Bean inside the IoC container. It is mainly useful when we want to create and configure objects manually, especially for third-party classes that we cannot annotate with @Component.
+
+Example:
+
+
+java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
+}
+Here, Spring calls the objectMapper() method and registers the returned ObjectMapper object as a Spring Bean.
+
+Key Differences:
+
+@Component
+
+@Bean
+
+Class-level annotation.
+
+Method-level annotation.
+
+Automatically detected through component scanning.
+
+Explicitly declares a bean through a method.
+
+Used on classes that we develop and control.
+
+Useful for third-party classes or custom object configuration.
+
+Bean creation is managed through component scanning and Spring's bean instantiation process.
+
+We define the object creation logic inside the method.
+
+Interview Tip: Use @Component when you want Spring to automatically detect and manage your class as a bean. Use @Bean when you want explicit control over object creation and configuration, especially for third-party classes.
+
+Important: @Service, @Repository, and @Controller are specialized forms of @Component, whereas @Bean is a separate annotation used to register objects through configuration methods.
+
+
+You said:
+10. What is the difference between @Autowired, @Qualifier, and @Primary?
+
+ChatGPT said:
+10. What is the difference between @Autowired, @Qualifier, and @Primary?
+
+Ans.
+
+Definition: @Autowired, @Qualifier, and @Primary are Spring annotations used for Dependency Injection. They help Spring identify which bean should be injected into a class when creating objects and resolving dependencies.
+
+How they work:
+
+@Autowired: It is used to inject dependencies automatically. Spring searches for a matching bean in the IoC container and injects it into the required class. By default, it resolves dependencies primarily by type.
+
+Example:
+
+
+java
+@Service
+public class EmployeeService {
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+}
+Here, Spring automatically injects the EmployeeRepository bean into EmployeeService.
+
+@Qualifier: It is used when multiple beans of the same type are available in the Spring container. It helps us specify exactly which bean should be injected.
+
+Example:
+
+
+java
+@Component("emailService")
+public class EmailService implements MessageService {
+}
+
+@Component("smsService")
+public class SmsService implements MessageService {
+}
+
+@Service
+public class NotificationService {
+
+    @Autowired
+    @Qualifier("emailService")
+    private MessageService messageService;
+
+}
+Here, two beans implement the same interface. Using @Qualifier("emailService"), we tell Spring to inject the EmailService bean.
+
+@Primary: It is used when multiple beans of the same type are available. It tells Spring which bean should be preferred by default when no specific @Qualifier is provided.
+
+Example:
+
+
+java
+@Component
+@Primary
+public class EmailService implements MessageService {
+}
+
+@Component
+public class SmsService implements MessageService {
+}
+
+@Service
+public class NotificationService {
+
+    @Autowired
+    private MessageService messageService;
+
+}
+Here, Spring injects EmailService by default because it is marked with @Primary.
+
+Key Differences:
+
+Annotation
+
+Purpose
+
+@Autowired
+
+Automatically injects a dependency.
+
+@Qualifier
+
+Specifies exactly which bean should be injected.
+
+@Primary
+
+Defines the default preferred bean when multiple beans are available.
+
+Interview Tip: @Autowired is used for automatic dependency injection, @Qualifier is used to resolve ambiguity by specifying a bean name, and @Primary is used to define the default bean when multiple beans of the same type exist.
+
+Important: If both @Primary and @Qualifier are used for the same injection point, @Qualifier takes precedence over @Primary. Also, constructor injection is generally preferred over field injection in modern Spring Boot applications.
+
+
+Log in for more personalized help with writing, rewriting, and translation.
+
+
+Log in
+
+Sign up for free
+You said:
+11. What are Spring Boot Profiles? How do you use them?
+
+ChatGPT said:
+11. What are Spring Boot Profiles? How do you use them?
+
+Ans.
+
+Definition: Spring Boot Profiles are used to maintain different configurations for different environments, such as Development (Dev), Testing (QA), and Production (Prod). They allow us to use different database configurations, server settings, and other properties without changing the application code.
+
+How they work:
+
+Spring Boot provides the @Profile annotation and profile-specific configuration files to manage environment-based configurations.
+
+1. Profile-specific configuration files:
+
+We can create separate configuration files for different environments.
+
+Example:
+
+
+text
+application.properties
+application-dev.properties
+application-qa.properties
+application-prod.properties
+Each file contains environment-specific configurations.
+
+application-dev.properties
+
+
+properties
+server.port=8081
+spring.datasource.url=jdbc:mysql://localhost:3306/dev_db
+application-prod.properties
+
+
+properties
+server.port=8082
+spring.datasource.url=jdbc:mysql://prod-server:3306/prod_db
+2. Activating a Profile:
+
+We can activate a specific profile using the spring.profiles.active property.
+
+In application.properties:
+
+
+properties
+spring.profiles.active=dev
+Alternatively, we can activate it using the command line:
+
+
+bash
+java -jar application.jar --spring.profiles.active=prod
+Now Spring Boot loads the configuration associated with the active profile.
+
+3. Using @Profile Annotation:
+
+We can also use @Profile to create different beans for different environments.
+
+Example:
+
+
+java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    @Profile("dev")
+    public String devBean() {
+        return "Development Environment";
+    }
+
+    @Bean
+    @Profile("prod")
+    public String prodBean() {
+        return "Production Environment";
+    }
+}
+Here:
+
+When the dev profile is active, Spring creates devBean.
+
+When the prod profile is active, Spring creates prodBean.
+
+Key Benefits:
+
+Maintains separate configurations for different environments.
+
+Avoids changing application code when switching environments.
+
+Makes deployment easier.
+
+Helps manage environment-specific database and server configurations.
+
+Interview Tip: Spring Boot Profiles help us maintain environment-specific configurations. For example, during development, we can connect to a local database, while in production, we can connect to a production database simply by changing the active profile without modifying the application code.
+
+Important: Never store production database passwords or sensitive credentials directly in profile configuration files committed to Git. Use environment variables or a secure secrets manager instead.
+
+
+You said:
+12. What is the difference between application.properties and application.yml?
+
+ChatGPT said:
+12. What is the difference between application.properties and application.yml?
+
+Ans.
+
+Definition: Both application.properties and application.yml are configuration files used in Spring Boot applications to define application settings such as server port, database configuration, logging levels, and active profiles. The main difference is their syntax and structure.
+
+How they work:
+
+1. application.properties: It uses a simple key-value format to define application configurations. Each property is generally written on a separate line using the key=value format.
+
+Example:
+
+
+properties
+server.port=8081
+
+spring.datasource.url=jdbc:mysql://localhost:3306/employee_db
+spring.datasource.username=root
+spring.datasource.password=root
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+Here, we define server, database, and JPA configurations using key-value pairs.
+
+2. application.yml: It uses YAML (YAML Ain't Markup Language) format to define configurations. It uses indentation and a hierarchical structure, which makes complex configurations easier to read and maintain.
+
+Example:
+
+
+yaml
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/employee_db
+    username: root
+    password: root
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+Here, configurations are organized in a hierarchical structure using indentation.
+
+Key Differences:
+
+application.properties
+
+application.yml
+
+Uses key-value format.
+
+Uses YAML format.
+
+Uses = or : to separate keys and values.
+
+Uses indentation to define hierarchy.
+
+Configuration is generally written in a flat structure.
+
+Supports nested and hierarchical structures.
+
+Easier for simple configurations.
+
+Easier to manage complex configurations.
+
+File extension is .properties.
+
+File extension is .yml or .yaml.
+
+Interview Tip: Both files serve the same purpose in Spring Boot. For simple configurations, application.properties is easy to use, while application.yml is generally preferred for complex and hierarchical configurations because it provides better readability.
+
+Important: We should avoid defining the same configuration property in both files because it can create confusion about which value will be applied. Spring Boot supports both formats.
+
+
+You said:
+13. What is Spring Boot Actuator?
+
+ChatGPT said:
+13. What is Spring Boot Actuator?
+
+Ans.
+
+Definition: Spring Boot Actuator is a Spring Boot module that provides production-ready features to monitor and manage our application. It helps us check application health, view application metrics, monitor performance, and understand the internal status of the application without writing additional monitoring code.
+
+How it works:
+
+Spring Boot Actuator provides several built-in endpoints that expose application information through HTTP or JMX.
+
+1. Adding Actuator Dependency:
+
+First, we need to add the Actuator dependency in our pom.xml file.
+
+
+xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+2. Enabling Actuator Endpoints:
+
+By default, Spring Boot Actuator exposes only a limited set of endpoints over HTTP. We can configure additional endpoints in application.properties.
+
+
+properties
+management.endpoints.web.exposure.include=health,info,metrics,beans
+3. Important Actuator Endpoints:
+
+Endpoint
+
+Purpose
+
+/actuator/health
+
+Checks application health status.
+
+/actuator/info
+
+Displays application information.
+
+/actuator/metrics
+
+Provides application performance metrics.
+
+/actuator/beans
+
+Displays all Spring Beans available in the application.
+
+/actuator/env
+
+Displays environment properties.
+
+/actuator/mappings
+
+Displays all registered request mappings.
+
+/actuator/loggers
+
+Displays and manages logging levels.
+
+4. Example:
+
+If our Spring Boot application is running on port 8080, we can check its health using:
+
+
+text
+http://localhost:8080/actuator/health
+Response:
+
+
+json
+{
+  "status": "UP"
+}
+Here, UP indicates that the application is healthy according to the configured health indicators.
+
+Key Benefits:
+
+Monitors application health.
+
+Helps identify performance issues.
+
+Provides application metrics.
+
+Helps monitor database and other external service connectivity through health indicators.
+
+Makes production monitoring and management easier.
+
+Interview Tip: Spring Boot Actuator is mainly used for application monitoring and management in production environments. For example, if an application goes down or a database connection fails, we can use the health endpoint to identify the application's health status.
+
+Important: Actuator endpoints like /actuator/env, /actuator/beans, and /actuator/heapdump may expose sensitive information. We should expose only the required endpoints and secure them using Spring Security or appropriate access controls.
+
+
+You said:
+14. How does Spring Boot handle embedded servers?
+
+ChatGPT said:
+14. How does Spring Boot handle embedded servers?
+
+Ans.
+
+Definition: Spring Boot supports embedded servers, which means we don't need to install or configure an external web server separately to run our web applications. It provides built-in server support, such as Tomcat, Jetty, and Undertow, allowing us to run applications as standalone Java applications.
+
+How they work:
+
+1. Embedded Server: When we add the spring-boot-starter-web dependency to our Spring Boot application, it automatically includes an embedded Tomcat server by default.
+
+2. Automatic Configuration: When the application starts, Spring Boot automatically configures the embedded server based on the available dependencies and application properties.
+
+3. Application Startup: When we run the Spring Boot application using the main() method, Spring Boot starts the embedded server and initializes the Spring ApplicationContext.
+
+4. Handling Requests: Once the embedded server starts, it listens on the configured port (8080 by default) and handles incoming HTTP requests through Spring MVC's DispatcherServlet.
+
+Example:
+
+Main application class:
+
+
+java
+@SpringBootApplication
+public class EmployeeApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(EmployeeApplication.class, args);
+    }
+}
+Here, SpringApplication.run() starts the Spring application and automatically starts the embedded Tomcat server.
+
+Changing the Default Port:
+
+We can change the default server port using application.properties.
+
+
+properties
+server.port=9090
+Now our application will run on port 9090 instead of the default port 8080.
+
+Popular Embedded Servers:
+
+Server
+
+Description
+
+Tomcat
+
+Default embedded server in Spring Boot Web applications.
+
+Jetty
+
+Lightweight web server and servlet container.
+
+Undertow
+
+Lightweight and high-performance web server.
+
+Key Benefits:
+
+No need to install an external server.
+
+Easy application deployment.
+
+Simplifies development and testing.
+
+Makes microservice deployment easier.
+
+Application can run independently using an executable JAR file.
+
+Interview Tip: Spring Boot uses an embedded Tomcat server by default when we use spring-boot-starter-web. When we execute the application using SpringApplication.run(), the embedded server starts automatically, and the application becomes accessible through its configured port.
+
+Important: Spring Boot also supports deploying applications as WAR files to external servlet containers. However, executable JAR deployment with an embedded server is commonly preferred in modern microservices architecture.
+
+
+You said:
+15. What is the difference between CommandLineRunner and ApplicationRunner?
+
+ChatGPT said:
+15. What is the difference between CommandLineRunner and ApplicationRunner?
+
+Ans.
+
+Definition: Both CommandLineRunner and ApplicationRunner are Spring Boot interfaces used to execute code automatically after the Spring application context has been initialized and before the application is considered fully started. They are commonly used to perform startup tasks such as loading initial data, initializing configurations, and executing database operations.
+
+How they work:
+
+1. CommandLineRunner: It is an interface that provides a run() method, which accepts command-line arguments as an array of Strings (String... args).
+
+Example:
+
+
+java
+@Component
+public class MyCommandLineRunner implements CommandLineRunner {
+
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println("CommandLineRunner executed");
+
+        for (String arg : args) {
+            System.out.println(arg);
+        }
+    }
+}
+Here, Spring Boot automatically executes the run() method during application startup and passes the command-line arguments as strings.
+
+2. ApplicationRunner: It is also an interface that provides a run() method, but it accepts an ApplicationArguments object instead of a String array.
+
+Example:
+
+
+java
+@Component
+public class MyApplicationRunner implements ApplicationRunner {
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        System.out.println("ApplicationRunner executed");
+
+        System.out.println(args.getOptionNames());
+    }
+}
+Here, Spring Boot automatically executes the run() method and provides an ApplicationArguments object, which makes it easier to access and process command-line arguments.
+
+Key Differences:
+
+CommandLineRunner
+
+ApplicationRunner
+
+It is a Spring Boot interface.
+
+It is a Spring Boot interface.
+
+Provides a run(String... args) method.
+
+Provides a run(ApplicationArguments args) method.
+
+Accepts arguments as a String array.
+
+Accepts arguments through an ApplicationArguments object.
+
+Argument parsing needs to be handled manually.
+
+Provides built-in methods to access parsed arguments.
+
+Suitable for simple startup tasks.
+
+Suitable for startup tasks requiring structured argument handling.
+
+Example of Command-Line Arguments:
+
+Suppose we start our application using:
+
+
+bash
+java -jar employee.jar --name=John --active
+In ApplicationRunner, we can access these arguments using:
+
+
+java
+args.getOptionNames();          // [name, active]
+
+args.getOptionValues("name");   // [John]
+
+args.containsOption("active");  // true
+Interview Tip: Both interfaces execute automatically during Spring Boot application startup. The main difference is that CommandLineRunner receives arguments as a String array, whereas ApplicationRunner receives an ApplicationArguments object, which provides convenient methods to access parsed arguments.
+
+Important: If multiple CommandLineRunner or ApplicationRunner beans are present, we can use the @Order annotation or implement Ordered to control their execution order. By default, the execution order is not guaranteed.
+
+
+You said:
+16. What is the difference between Filter, Interceptor, and AOP?
+
+ChatGPT said:
+16. What is the difference between Filter, Interceptor, and AOP?
+
+Ans.
+
+Definition: Filter, Interceptor, and AOP are mechanisms used in Spring Boot to handle cross-cutting concerns such as logging, authentication, authorization, request validation, and performance monitoring. However, they work at different levels of the application.
+
+How they work:
+
+1. Filter: A Filter is part of the Java Servlet API. It works at the servlet container level and intercepts incoming HTTP requests and outgoing HTTP responses before they reach the DispatcherServlet or after they leave it.
+
+It is commonly used for:
+
+Authentication and security checks.
+
+Request and response logging.
+
+CORS handling.
+
+Request and response modification.
+
+Example:
+
+
+
+@Component
+public class MyFilter implements Filter {
+
+    @Override
+    public void doFilter(
+            ServletRequest request,
+            ServletResponse response,
+            FilterChain chain)
+            throws IOException, ServletException {
+
+        System.out.println("Before Request");
+
+        chain.doFilter(request, response);
+
+        System.out.println("After Request");
+    }
+}
+Here, chain.doFilter() passes the request to the next filter or servlet in the chain.
+
+2. Interceptor: An Interceptor is provided by the Spring MVC framework. It works around the Controller execution and intercepts requests after they reach the DispatcherServlet but before they reach the Controller.
+
+It provides three important methods:
+
+preHandle(): Executes before the Controller method.
+
+postHandle(): Executes after the Controller method but before the response is rendered.
+
+afterCompletion(): Executes after request processing is completed.
+
+It is commonly used for:
+
+Controller-level logging.
+
+Checking user permissions.
+
+Measuring request execution time.
+
+Tracking API requests.
+
+Example:
+
+
+
+@Component
+public class MyInterceptor implements HandlerInterceptor {
+
+    @Override
+    public boolean preHandle(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Object handler) {
+
+        System.out.println("Before Controller");
+        return true;
+    }
+
+    @Override
+    public void afterCompletion(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Object handler,
+            Exception ex) {
+
+        System.out.println("After Request Completion");
+    }
+}
+We also need to register the interceptor using WebMvcConfigurer.
+
+3. AOP (Aspect-Oriented Programming): AOP is a programming technique provided by Spring that helps us separate cross-cutting concerns from business logic. It works at the method execution level using concepts like Aspect, Advice, Pointcut, and JoinPoint.
+
+It is commonly used for:
+
+Method-level logging.
+
+Performance monitoring.
+
+Transaction management.
+
+Auditing.
+
+Exception handling around method execution.
+
+Example:
+
+
+
+@Aspect
+@Component
+public class LoggingAspect {
+
+    @Before("execution(* com.example.service.*.*(..))")
+    public void logBefore() {
+        System.out.println("Before Service Method");
+    }
+
+    @After("execution(* com.example.service.*.*(..))")
+    public void logAfter() {
+        System.out.println("After Service Method");
+    }
+}
+Here, @Before executes before the matched service method, and @After executes after it completes, whether normally or exceptionally.
+
+
+Interview Tip: Remember the main difference:
+
+Filter: Works at the Servlet level.
+
+Interceptor: Works at the Spring MVC Controller level.
+
+AOP: Works at the method execution level.
+
+For example, if we want to log every incoming HTTP request, we can use Filter. If we want to check something before a Controller executes, we can use Interceptor. If we want to log the execution time of service methods, we can use AOP.
+
+Important: Spring Security primarily uses Servlet Filters through its security filter chain. Also, Spring AOP generally works through proxies, so self-invocation (calling another advised method within the same object) does not trigger the advice in the usual proxy-based configuration.
+
+
+17. How does Spring Security work internally?
+Ans. 
+
+Definition: Spring Security is a security framework provided by Spring that helps protect applications from unauthorized access. It provides authentication and authorization mechanisms to secure REST APIs and web applications.
+
+Authentication: It verifies who the user is.
+
+Authorization: It checks what the authenticated user is allowed to access.
+
+Spring Security internally uses a chain of Servlet Filters called SecurityFilterChain to intercept incoming HTTP requests and apply security checks before allowing requests to reach the Controller.
+
+
+Interview Tip: Remember the most important internal flow:
+
+SecurityFilterChain → AuthenticationManager → AuthenticationProvider → UserDetailsService → SecurityContextHolder → Authorization
+
+Spring Security uses a filter-based architecture. It intercepts incoming requests, authenticates users, stores authentication information in the SecurityContext, and checks permissions before allowing access to protected resources.
+
+Important:
+
+Passwords should never be stored in plain text. Use BCryptPasswordEncoder or another suitable password encoder.
+
+HTTP 401 means authentication is required or has failed.
+
+HTTP 403 means the user is authenticated but does not have sufficient permissions.
+
+In JWT-based authentication, a security filter typically validates the JWT and establishes authentication in the SecurityContext for each request.
+
+
+18. What is JWT authentication, and how do you implement it in Spring Boot?
+Ans. 
+
+Definition: JWT (JSON Web Token) is a token-based authentication mechanism used to securely transmit information between a client and a server. It is commonly used in Spring Boot microservices and REST APIs to authenticate users without maintaining traditional server-side HTTP sessions.
+
+When a user successfully logs in, the server generates a JWT token and sends it to the client. The client stores the token and sends it with every subsequent request. The server validates the token before allowing access to protected APIs.
+
+JWT Structure
+A JWT consists of three parts separated by dots (.).
+
+
+text
+Header.Payload.Signature
+
+
+Interview Tip: JWT authentication works on a token-based mechanism. First, the user logs in and Spring Security validates the credentials. Then the server generates a signed JWT token. The client sends this token with every subsequent request using the Authorization: Bearer header. A JWT filter validates the token and sets the authentication inside SecurityContextHolder, after which Spring Security performs authorization.
+
+Important:
+
+Always use HTTPS to protect JWT tokens during transmission.
+
+Keep signing keys secure and never hardcode them in source code.
+
+Use short-lived access tokens and an appropriate refresh-token strategy.
+
+JWT authentication is stateless, but token revocation requires additional mechanisms such as token denylisting or short expiration periods.
+
+Spring Security also provides built-in OAuth2 Resource Server support for validating JWTs, so writing a custom JWT filter is not always necessary.
+
+20. How do you validate request data using @Valid and @Validated?
+
+Ans. 
+
+
+
+Definition: @Valid and @Validated are annotations used in Spring Boot to validate incoming request data. They help ensure that users provide valid data before it reaches the business logic.
+
+How they work:
+
+1. @Valid: It is provided by Jakarta Bean Validation and is used to trigger validation based on annotations like @NotNull, @NotBlank, @Email, and @Size.
+
+Interview Tip: @Valid is commonly used to validate incoming request DTOs, whereas @Validated is useful when we need advanced validation features like validation groups. Both help prevent invalid data from entering business logic.
+
+
+=====================================================================================
+
+✅ Database & JPA
+
+
+ 1. How does Hibernate manage caching (1st level vs 2nd level)?
+Ans. 
+Definition: Hibernate caching is a mechanism used to improve application performance by reducing repeated database queries. Hibernate provides two levels of caching: First-Level Cache and Second-Level Cache.
+
+How it works:
+
+First-Level Cache (L1 Cache): It is enabled by default in Hibernate and is associated with the Session object. When we fetch an entity for the first time, Hibernate stores it in the session cache. If we fetch the same entity again within the same session, Hibernate returns it from the cache instead of querying the database.
+
+Second-Level Cache (L2 Cache): It is associated with the SessionFactory and shared across multiple Hibernate sessions. It is not enabled by default and requires a cache provider such as Ehcache or Infinispan. When an entity is fetched, Hibernate can store it in the second-level cache so that other sessions can reuse it without querying the database.
+
+Advantages of Hibernate Caching:
+
+Reduces database queries.
+
+Improves application performance.
+
+Reduces database load.
+
+Improves response time for frequently accessed data.
+
+In short: First-Level Cache is associated with a Hibernate Session and is enabled by default, whereas Second-Level Cache is associated with SessionFactory, shared across sessions, and requires explicit configuration. Both caches help reduce database calls and improve application performance.

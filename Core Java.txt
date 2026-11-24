@@ -1,0 +1,1491 @@
+1. Collections Framework : 
+
+Interview Answer:
+
+The Java Collections Framework is a collection of classes and interfaces that help us store, manage, and manipulate groups of objects.
+
+Instead of creating our own data structures, Java provides ready-made classes like ArrayList, LinkedList, HashSet, and HashMap.
+
+Using the Collections Framework, we can easily perform operations like:
+
+Adding elements.
+
+Removing elements.
+
+Searching elements.
+
+Sorting elements.
+
+Updating elements.
+
+Iterating over elements.
+
+We need the Collections Framework because it makes data management easier and provides reusable data structures.
+
+Its main advantages are:
+
+Dynamic Size: Unlike arrays, collections can grow or shrink dynamically.
+
+Ready-made Classes: We don't need to implement data structures ourselves.
+
+Easy Searching: We can search for elements using built-in methods.
+
+Sorting: We can easily sort elements.
+
+Code Reusability: We can reuse existing classes and interfaces.
+
+Performance: Different collections are designed for different requirements.
+
+
+
+A. List Interface : List is an interface in Java that is used to store an ordered collection of elements.
+
+It allows:
+
+1. Duplicate elements.
+2. Null values.
+3. Maintaining insertion order.
+4. Accessing elements using indexes.
+
+Example:
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        List<String> names = new ArrayList<>();
+
+        names.add("Rahul");
+        names.add("Amit");
+        names.add("Rahul");
+        names.add("Priya");
+
+        System.out.println(names);
+    }
+}
+
+
+Output:   [Rahul, Amit, Rahul, Priya]
+
+
+B. Set Interface : Set is an interface that stores unique elements. It does not allow duplicate values.
+
+Important points:
+
+1. Does not allow duplicates.
+2. Generally does not support index-based access.
+3. Ordering depends on the implementation.
+
+Example:
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Set<Integer> numbers = new HashSet<>();
+
+        numbers.add(10);
+        numbers.add(20);
+        numbers.add(10);
+        numbers.add(30);
+
+        System.out.println(numbers);
+    }
+}
+Output:  [20, 10, 30]
+
+C. Queue Interface : Queue is an interface that is generally used to store elements following the FIFO principle (First In, First Out).
+
+The element inserted first will generally be removed first.
+
+Real-life example:
+
+Think about a ticket counter. The person who comes first gets the ticket first.
+
+Example:
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Queue<Integer> queue = new LinkedList<>();
+
+        queue.add(10);
+        queue.add(20);
+        queue.add(30);
+
+        System.out.println(queue);
+
+        queue.remove();
+
+        System.out.println(queue);
+    }
+}
+
+Output:
+
+[10, 20, 30]
+[20, 30]
+
+
+D. Map Interface : Map is used to store data in key-value pairs.
+
+Each key must be unique, but values can be duplicated.
+
+For example, we can store employee IDs as keys and employee names as values.
+
+Example:
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Map<Integer, String> employees = new HashMap<>();
+
+        employees.put(101, "Rahul");
+        employees.put(102, "Amit");
+        employees.put(103, "Priya");
+
+        System.out.println(employees);
+
+        System.out.println(employees.get(101));
+    }
+}
+
+Output:
+{101=Rahul, 102=Amit, 103=Priya}
+
+Rahul
+
+
+4. Difference Between ArrayList and LinkedList
+
+1. ArrayList : 
+
+A. Uses a dynamic array
+B. Fast random access
+C. Insertion in the middle may require shifting elements
+D. Less memory overhead
+E. Best for frequent reading/access
+
+2. LinkedList
+A. Uses a doubly linked list
+B. Slow random access
+C. Insertion can be efficient if the position/node is already known
+D. More memory overhead because of node pointers
+
+
+5. Difference Between HashSet and TreeSet
+
+HashSet : 
+A. Does not maintain sorted order
+B. Uses hashing
+C. Average add/search/remove: O(1)
+D. Generally allows one null element
+
+TreeSet : 
+A. Maintains sorted order
+B. Uses a tree structure
+C. Add/search/remove: O(log n)
+D. Does not allow null elements with natural ordering
+
+
+
+7. Important Methods of Collections
+These are some frequently used methods.
+
+Method            Purpose
+
+add() :  Adds an element
+
+remove()  : Removes an element
+
+contains() : Checks whether an element exists
+
+size()  : Returns the number of elements
+
+isEmpty() :  Checks whether collection is empty
+
+clear()  :   Removes all elements
+
+iterator()  :   Returns an iterator
+
+addAll()  :   Adds all elements from another collection
+
+removeAll()  :    Removes matching elements
+
+retainAll()   :   Keeps only common elements
+
+
+=================================================
+
+String, StringBuilder and StringBuffer in Java : 
+
+1. What is String in Java?
+Interview Answer:
+
+String is a class in Java that is used to store a sequence of characters.
+
+In Java, String objects are immutable, which means once we create a String object, we cannot change its original value.
+
+Whenever we modify a String, Java creates a new String object instead of modifying the existing object.
+
+Example:
+
+
+public class Main {
+    public static void main(String[] args) {
+
+        String str = "Hello";
+
+        str.concat(" World");
+
+        System.out.println(str);
+    }
+}
+Output:  Hello
+
+
+Why is the output only Hello?
+
+Because String is immutable. The concat() method creates a new String, but we haven't stored that new String anywhere.
+
+Correct example:
+
+String str = "Hello";
+
+str = str.concat(" World");
+
+System.out.println(str);
+
+Output:  Hello World
+
+Here, a new String object is created, and its reference is assigned to str.
+
+Where is String stored in Java?
+String objects can be stored in two important areas:
+
+String Constant Pool: A special area inside the heap where Java reuses string literals.
+
+Heap Memory: String objects created using new are allocated in the heap.
+
+Example:
+
+
+java
+String s1 = "Java";
+String s2 = "Java";
+
+String s3 = new String("Java");
+Here:
+
+s1 and s2 refer to the same pooled String object.
+
+s3 refers to a separate String object created in the heap.
+
+3. What is StringBuffer in Java?
+Interview Answer:
+
+StringBuffer is also a class in Java that is used to create mutable strings.
+
+Like StringBuilder, we can modify the existing object without creating a new object every time.
+
+The main difference is that StringBuffer is synchronized, which means its methods provide thread-safe access when multiple threads operate on the same StringBuffer object.
+
+Because of synchronization, it can be slower than StringBuilder in single-threaded scenarios.
+
+Example : 
+
+public class Main {
+    public static void main(String[] args) {
+
+        StringBuffer sb = new StringBuffer("Hello");
+
+        sb.append(" World");
+
+        sb.append(" Java");
+
+        System.out.println(sb);
+    }
+}
+
+Output :  Hello World Java
+
+
+Log in
+Sign up for free
+I am preparing for Java Developer so i will gove you questions you have to explain about them in simple words with example so that i can explain it to same Interviwer
+
+Collections Framework in java
+
+Java Collections Framework (JCF)
+Let's understand the Java Collections Framework in a simple, interview-friendly way so that you can understand it and confidently explain it to an interviewer.
+
+1. What is the Collections Framework in Java?
+Interview Answer:
+
+The Java Collections Framework is a collection of classes and interfaces that help us store, manage, and manipulate groups of objects.
+
+Instead of creating our own data structures, Java provides ready-made classes like ArrayList, LinkedList, HashSet, and HashMap.
+
+Using the Collections Framework, we can easily perform operations like:
+
+Adding elements.
+
+Removing elements.
+
+Searching elements.
+
+Sorting elements.
+
+Updating elements.
+
+Iterating over elements.
+
+Example:
+
+Suppose we want to store the names of five students.
+
+Without Collections, we might use an array:
+
+
+java
+String[] names = new String[5];
+
+names[0] = "Rahul";
+names[1] = "Amit";
+names[2] = "Priya";
+But arrays have a fixed size.
+
+Using Collections:
+
+
+java
+ArrayList<String> names = new ArrayList<>();
+
+names.add("Rahul");
+names.add("Amit");
+names.add("Priya");
+
+System.out.println(names);
+Output:
+
+
+text
+[Rahul, Amit, Priya]
+Here, we don't need to define the size in advance. The ArrayList can grow dynamically.
+
+2. Why do we need the Collections Framework?
+Interview Answer:
+
+We need the Collections Framework because it makes data management easier and provides reusable data structures.
+
+Its main advantages are:
+
+Dynamic Size: Unlike arrays, collections can grow or shrink dynamically.
+
+Ready-made Classes: We don't need to implement data structures ourselves.
+
+Easy Searching: We can search for elements using built-in methods.
+
+Sorting: We can easily sort elements.
+
+Code Reusability: We can reuse existing classes and interfaces.
+
+Performance: Different collections are designed for different requirements.
+
+3. Collections Framework Hierarchy
+This is one of the most important topics for Java interviews.
+
+The Collections Framework mainly consists of interfaces and their implementation classes.
+
+Структуры данных Java #неОпятьАСнова #javaJunior / Хабр
+ 
+Let's understand the important interfaces one by one.
+
+A. List Interface
+Interview Answer:
+
+List is an interface in Java that is used to store an ordered collection of elements.
+
+It allows:
+
+Duplicate elements.
+
+Null values.
+
+Maintaining insertion order.
+
+Accessing elements using indexes.
+
+Example:
+
+
+java
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        List<String> names = new ArrayList<>();
+
+        names.add("Rahul");
+        names.add("Amit");
+        names.add("Rahul");
+        names.add("Priya");
+
+        System.out.println(names);
+    }
+}
+Output:
+
+
+text
+[Rahul, Amit, Rahul, Priya]
+Important List implementation classes:
+
+Class
+
+Description
+
+ArrayList
+
+Uses a dynamic array
+
+LinkedList
+
+Uses a doubly linked list
+
+Vector
+
+Thread-safe dynamic array
+
+Stack
+
+Follows LIFO principle
+
+B. Set Interface
+Interview Answer:
+
+Set is an interface that stores unique elements. It does not allow duplicate values.
+
+Important points:
+
+Does not allow duplicates.
+
+Generally does not support index-based access.
+
+Ordering depends on the implementation.
+
+Example:
+
+
+java
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Set<Integer> numbers = new HashSet<>();
+
+        numbers.add(10);
+        numbers.add(20);
+        numbers.add(10);
+        numbers.add(30);
+
+        System.out.println(numbers);
+    }
+}
+Output:
+
+
+text
+[20, 10, 30]
+Note: HashSet does not guarantee insertion order, so output order can vary.
+
+Important Set implementation classes:
+
+Class
+
+Description
+
+HashSet
+
+Does not maintain insertion order
+
+LinkedHashSet
+
+Maintains insertion order
+
+TreeSet
+
+Stores elements in sorted order
+
+C. Queue Interface
+Interview Answer:
+
+Queue is an interface that is generally used to store elements following the FIFO principle (First In, First Out).
+
+The element inserted first will generally be removed first.
+
+Real-life example:
+
+Think about a ticket counter. The person who comes first gets the ticket first.
+
+Example:
+
+
+java
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Queue<Integer> queue = new LinkedList<>();
+
+        queue.add(10);
+        queue.add(20);
+        queue.add(30);
+
+        System.out.println(queue);
+
+        queue.remove();
+
+        System.out.println(queue);
+    }
+}
+Output:
+
+
+text
+[10, 20, 30]
+[20, 30]
+Important Queue implementation classes:
+
+PriorityQueue
+
+LinkedList
+
+ArrayDeque
+
+D. Map Interface
+Interview Answer:
+
+Map is used to store data in key-value pairs.
+
+Each key must be unique, but values can be duplicated.
+
+For example, we can store employee IDs as keys and employee names as values.
+
+Example:
+
+
+java
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Map<Integer, String> employees = new HashMap<>();
+
+        employees.put(101, "Rahul");
+        employees.put(102, "Amit");
+        employees.put(103, "Priya");
+
+        System.out.println(employees);
+
+        System.out.println(employees.get(101));
+    }
+}
+Output:
+
+
+text
+{101=Rahul, 102=Amit, 103=Priya}
+
+Rahul
+Important Map implementation classes:
+
+Class
+
+Description
+
+HashMap
+
+Does not maintain insertion order
+
+LinkedHashMap
+
+Maintains insertion order
+
+TreeMap
+
+Stores keys in sorted order
+
+Hashtable
+
+Legacy synchronized Map implementation
+
+Important interview point: Map is part of the Collections Framework, but Map does not extend the Collection interface.
+
+4. Difference Between ArrayList and LinkedList
+This is a very common interview question.
+
+ArrayList
+
+LinkedList
+
+Uses a dynamic array
+
+Uses a doubly linked list
+
+Fast random access
+
+Slow random access
+
+Insertion in the middle may require shifting elements
+
+Insertion can be efficient if the position/node is already known
+
+Less memory overhead
+
+More memory overhead because of node pointers
+
+Best for frequent reading/access
+
+Useful for frequent insertions and removals at ends
+
+Example:
+
+
+java
+List<String> list1 = new ArrayList<>();
+
+list1.add("Java");
+list1.add("Python");
+
+List<String> list2 = new LinkedList<>();
+
+list2.add("Java");
+list2.add("Python");
+Both implement the List interface, so we can use common List methods.
+
+Interview tip: If the interviewer asks which one is faster, explain that ArrayList is generally better for accessing elements by index, while LinkedList can be useful for frequent insertions and removals at the ends.
+
+5. Difference Between HashSet and TreeSet
+HashSet
+
+TreeSet
+
+Does not maintain sorted order
+
+Maintains sorted order
+
+Uses hashing
+
+Uses a tree structure
+
+Average add/search/remove: O(1)
+
+Add/search/remove: O(log n)
+
+Generally allows one null element
+
+Does not allow null elements with natural ordering
+
+Example:
+
+
+java
+Set<Integer> set1 = new HashSet<>();
+
+set1.add(30);
+set1.add(10);
+set1.add(20);
+
+System.out.println(set1);
+Possible output:
+
+
+text
+[20, 10, 30]
+Using TreeSet:
+
+
+java
+Set<Integer> set2 = new TreeSet<>();
+
+set2.add(30);
+set2.add(10);
+set2.add(20);
+
+System.out.println(set2);
+Output:
+
+
+text
+[10, 20, 30]
+6. Difference Between HashMap and Hashtable
+HashMap
+
+Hashtable
+
+Not synchronized
+
+Synchronized
+
+Not thread-safe by default
+
+Thread-safe for individual operations
+
+Allows one null key
+
+Does not allow null keys
+
+Allows multiple null values
+
+Does not allow null values
+
+Generally faster
+
+Generally slower due to synchronization
+
+Interview Answer:
+
+HashMap is generally used in normal applications where synchronization is not required.
+
+Hashtable is a legacy class. For concurrent applications, we generally prefer ConcurrentHashMap.
+
+7. Important Methods of Collections
+These are some frequently used methods.
+
+Method
+
+Purpose
+
+add()
+
+Adds an element
+
+remove()
+
+Removes an element
+
+contains()
+
+Checks whether an element exists
+
+size()
+
+Returns the number of elements
+
+isEmpty()
+
+Checks whether collection is empty
+
+clear()
+
+Removes all elements
+
+iterator()
+
+Returns an iterator
+
+addAll()
+
+Adds all elements from another collection
+
+removeAll()
+
+Removes matching elements
+
+retainAll()
+
+Keeps only common elements
+
+Example:
+
+
+java
+List<Integer> numbers = new ArrayList<>();
+
+numbers.add(10);
+numbers.add(20);
+numbers.add(30);
+
+System.out.println(numbers.size()); 
+System.out.println(numbers.contains(20));
+
+numbers.remove(Integer.valueOf(10));
+
+System.out.println(numbers);
+Output:
+
+
+text
+3
+true
+[20, 30]
+8. Difference Between Collection and Collections
+This is a common tricky interview question.
+
+Collection
+
+Collections
+
+It is an interface
+
+It is a utility class
+
+It is the root interface of the Collection hierarchy
+
+Provides utility methods
+
+Used to represent groups of objects
+
+Used to perform operations on collections
+
+Available in java.util
+
+Available in java.util
+
+Example:
+
+
+java
+Collection<String> names = new ArrayList<>();
+
+names.add("Rahul");
+names.add("Amit");
+Using Collections utility class:
+
+
+java
+Collections.sort(new ArrayList<>(names));
+Other utility methods include:
+
+Collections.reverse()
+
+Collections.max()
+
+Collections.min()
+
+Collections.shuffle()
+
+9. Most Important Interview Questions
+Make sure you prepare these questions because interviewers frequently ask them.
+
+What is the Java Collections Framework?
+
+What is the difference between Array and ArrayList?
+
+What is the difference between List, Set, and Queue?
+
+What is the difference between ArrayList and LinkedList?
+
+What is the difference between HashSet and TreeSet?
+
+What is the difference between HashMap and Hashtable?
+
+How does HashMap work internally?
+
+How does HashSet work internally?
+
+What is the difference between HashMap and ConcurrentHashMap?
+
+What is the difference between Comparable and Comparator?
+
+What is fail-fast and fail-safe iteration?
+
+What is Iterator and ListIterator?
+
+Can we store duplicate keys in HashMap?
+
+Can we store null keys and null values in HashMap?
+
+What is the difference between Collection and Collections?
+
+10. Test Your Interview Preparation
+Let's practice just like a real Java interview. I'll ask you one question at a time. You answer in your own words, and I'll correct your answer and give you a better interview-ready version.
+
+Java Interview Practice
+
+Question 1 of 3
+What is the Java Collections Framework?
+Type your interview answer here...
+
+My suggestion: After understanding these basics, the next most important topic is How HashMap works internally in Java. Interviewers frequently ask this, especially for Java Developer positions. We can understand it step by step with diagrams and real-world examples.
+
+
+Save your preferences
+Log in for a more personalized ChatGPT experience.
+
+
+Log in
+
+Sign up for free
+now String, StringBuilder, StringBuffer
+
+String, StringBuilder and StringBuffer in Java
+This is a very important topic for Java Developer interviews. Interviewers frequently ask the difference between String, StringBuilder, and StringBuffer.
+
+Let's understand all three with simple examples and interview-ready answers.
+
+1. What is String in Java?
+Interview Answer:
+
+String is a class in Java that is used to store a sequence of characters.
+
+In Java, String objects are immutable, which means once we create a String object, we cannot change its original value.
+
+Whenever we modify a String, Java creates a new String object instead of modifying the existing object.
+
+Example:
+
+
+java
+public class Main {
+    public static void main(String[] args) {
+
+        String str = "Hello";
+
+        str.concat(" World");
+
+        System.out.println(str);
+    }
+}
+Output:
+
+
+text
+Hello
+Why is the output only Hello?
+
+Because String is immutable. The concat() method creates a new String, but we haven't stored that new String anywhere.
+
+Correct example:
+
+
+java
+String str = "Hello";
+
+str = str.concat(" World");
+
+System.out.println(str);
+Output:
+
+
+text
+Hello World
+Here, a new String object is created, and its reference is assigned to str.
+
+Where is String stored in Java?
+String objects can be stored in two important areas:
+
+String Constant Pool: A special area inside the heap where Java reuses string literals.
+
+Heap Memory: String objects created using new are allocated in the heap.
+
+Example:
+
+
+java
+String s1 = "Java";
+String s2 = "Java";
+
+String s3 = new String("Java");
+Here:
+
+s1 and s2 refer to the same pooled String object.
+
+s3 refers to a separate String object created in the heap.
+
+java - Difference between heap memory and string pool - Stack Overflow
+ 
+2. What is StringBuilder in Java?
+Interview Answer:
+
+StringBuilder is a class in Java that is used to create mutable strings.
+
+Mutable means we can modify the existing object without creating a new object every time.
+
+StringBuilder is not synchronized, which means it is not thread-safe by default.
+
+It is faster than StringBuffer in situations where multiple modifications are performed in a single thread.
+
+Example:
+
+
+java
+public class Main {
+    public static void main(String[] args) {
+
+        StringBuilder sb = new StringBuilder("Hello");
+
+        sb.append(" World");
+
+        sb.append(" Java");
+
+        System.out.println(sb);
+    }
+}
+Output:
+
+
+text
+Hello World Java
+Here, the same StringBuilder object is modified instead of creating a new String object for every operation.
+
+Important StringBuilder methods
+Method
+
+Purpose
+
+append()
+
+Adds data at the end
+
+insert()
+
+Inserts data at a particular position
+
+replace()
+
+Replaces characters
+
+delete()
+
+Deletes characters
+
+reverse()
+
+Reverses the string
+
+capacity()
+
+Returns current capacity
+
+length()
+
+Returns current length
+
+Example:
+
+
+java
+StringBuilder sb = new StringBuilder("Java");
+
+sb.append(" Developer");
+System.out.println(sb);
+
+sb.insert(4, " Full Stack");
+System.out.println(sb);
+
+sb.reverse();
+System.out.println(sb);
+Output:
+
+
+text
+Java Developer
+Java Full Stack Developer
+repoleveD kcatS lluF avaJ
+3. What is StringBuffer in Java?
+Interview Answer:
+
+StringBuffer is also a class in Java that is used to create mutable strings.
+
+Like StringBuilder, we can modify the existing object without creating a new object every time.
+
+The main difference is that StringBuffer is synchronized, which means its methods provide thread-safe access when multiple threads operate on the same StringBuffer object.
+
+Because of synchronization, it can be slower than StringBuilder in single-threaded scenarios.
+
+Example:
+
+
+java
+public class Main {
+    public static void main(String[] args) {
+
+        StringBuffer sb = new StringBuffer("Hello");
+
+        sb.append(" World");
+
+        sb.append(" Java");
+
+        System.out.println(sb);
+    }
+}
+Output:
+
+
+text
+Hello World Java
+Here, we can modify the StringBuffer object using methods like append(), insert(), and delete().
+
+4. Difference Between String, StringBuilder and StringBuffer
+String    Immutable
+Every modification that changes its value creates a new String object.
+
+String s = "Java";
+s = s + " Developer";
+
+StringBuilder   Mutable
+Modifies the same object and is not synchronized.
+
+StringBuilder sb = new StringBuilder("Java");
+sb.append(" Developer");
+
+StringBuffer   :  Mutable
+Modifies the same object and provides synchronized methods.
+
+StringBuffer sb = new StringBuffer("Java");
+sb.append(" Developer");
+
+
+===============================================
+
+
+What is Exception Handling in Java?
+Ans : 
+
+Exception handling in Java is a mechanism used to handle runtime errors so that the normal flow of the program does not stop unexpectedly.
+When an exception occurs, Java creates an exception object and transfers control to the appropriate exception handler.
+
+
+Example:
+
+Suppose we are dividing two numbers. If the second number is zero, Java throws an ArithmeticException.
+
+Without exception handling, the program will terminate abnormally.
+
+With exception handling, we can handle the error and continue the program.
+
+
+public class Main {
+    public static void main(String[] args) {
+
+        try {
+            int a = 10;
+            int b = 0;
+
+            int result = a / b;
+
+            System.out.println(result);
+
+        } catch (ArithmeticException e) {
+            System.out.println("Cannot divide by zero");
+        }
+
+        System.out.println("Program continues...");
+    }
+}
+
+
+6. What is Custom Exception?
+A custom exception is an exception created by the developer to handle application-specific errors.
+
+For example, in a banking application, if someone tries to withdraw more money than their account balance, we can create an InsufficientBalanceException.
+
+
+java
+class InsufficientBalanceException extends Exception {
+
+    InsufficientBalanceException(String message) {
+        super(message);
+    }
+}
+
+public class Bank {
+
+    static void withdraw(int balance, int amount)
+            throws InsufficientBalanceException {
+
+        if (amount > balance) {
+            throw new InsufficientBalanceException(
+                "Insufficient balance"
+            );
+        }
+
+        System.out.println("Withdrawal successful");
+    }
+
+    public static void main(String[] args) {
+
+        try {
+            withdraw(5000, 7000);
+        } catch (InsufficientBalanceException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+
+
+Output:   Insufficient balance
+
+
+=======================================================================
+
+
+What is Multithreading in Java?
+Ans : 
+
+
+Multithreading is a feature in Java that allows us to execute multiple threads simultaneously within a single program.
+
+A thread is the smallest unit of execution.
+
+Using multithreading, we can perform multiple tasks concurrently, which improves application responsiveness and makes better use of CPU resources.
+
+Real-time Example:
+
+Think about an e-commerce application like Amazon.
+
+At the same time:
+
+> One thread handles user login.
+> Another thread processes payments.
+> Another thread sends order confirmation emails.
+> Another thread updates order details.
+
+
+
+=======================================================================
+
+
+1. What is JVM (Java Virtual Machine)?
+Interview Answer:
+
+JVM stands for Java Virtual Machine. It is responsible for executing Java bytecode.
+
+When we compile a Java program, the Java compiler converts the source code (.java) into bytecode (.class).
+
+JVM executes this bytecode and makes Java platform-independent.
+
+
+Example:
+
+Suppose we write a Java program:
+
+
+java
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("Hello Java");
+    }
+}
+Step 1: Compile the program.
+
+
+bash
+javac Main.java
+This generates:
+
+
+text
+Main.class
+Step 2: Execute the program.
+
+
+bash
+java Main
+JVM loads and executes the bytecode.
+
+Output:
+
+Hello Java
+
+
+Important responsibilities of JVM:
+
+> Loads class files.
+> Verifies bytecode.
+> Executes bytecode.
+> Manages memory.
+> Performs garbage collection.
+> Handles runtime exceptions.
+
+
+Q : What is JDK (Java Development Kit)?
+Ans.  JDK stands for Java Development Kit.
+
+It is a software development kit that provides all the necessary tools to develop, compile, debug and run Java applications.
+
+It includes the JRE along with development tools like the Java compiler (javac), debugger and other utilities.
+
+Example:
+
+When we write a Java application, we use:
+
+javac to compile Java code.  >>  java to execute Java applications.  >>  javadoc to generate documentation.  >> jdb to debug Java applications.
+
+All these tools are provided through the JDK.
+
+
+Q.  What is JRE (Java Runtime Environment)?
+Interview Answer:
+
+JRE stands for Java Runtime Environment.
+It provides the environment required to run Java applications.
+It contains the JVM and supporting libraries required for execution.
+
+
+============================================================
+
+
+What are Generics in Java?
+
+Ans: 
+
+
+Generics in Java allow us to write classes, interfaces, and methods that can work with different data types.
+The main purpose of Generics is to provide type safety and reduce the need for explicit type casting.
+Instead of writing separate code for different data types, we can write one reusable class or method using Generics.
+
+
+
+Example without Generics:
+
+import java.util.ArrayList;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        ArrayList list = new ArrayList();
+
+        list.add("Java");
+        list.add(100);
+
+        String name = (String) list.get(0);
+
+        System.out.println(name);
+    }
+}
+
+Here, we can store different types of data in the same list.
+
+But there are two problems:
+We don't have proper type safety.
+We need to perform explicit type casting.
+
+Example with Generics:
+
+
+
+import java.util.ArrayList;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        ArrayList<String> list = new ArrayList<>();
+
+        list.add("Java");
+        list.add("Spring Boot");
+
+        String name = list.get(0);
+
+        System.out.println(name);
+    }
+}
+Output: Java
+
+Here, ArrayList<String> means we can store only String values.
+
+If we try:
+
+list.add(100);
+Java gives a compile-time error.
+
+Interview point: Generics provide compile-time type safety.
+
+3. What is a Generic Class?
+A generic class is a class that can work with different data types using a type parameter.
+
+We generally use T to represent a type.
+
+Example : 
+
+
+class Box<T> {
+
+    private T value;
+
+    public void setValue(T value) {
+        this.value = value;
+    }
+
+    public T getValue() {
+        return value;
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Box<String> box1 = new Box<>();
+
+        box1.setValue("Java");
+
+        System.out.println(box1.getValue());
+
+        Box<Integer> box2 = new Box<>();
+
+        box2.setValue(100);
+
+        System.out.println(box2.getValue());
+    }
+}
+
+
+4. What is a Generic Method?
+A generic method is a method that can accept different data types using a type parameter.
+
+Exmaple :
+
+public class Main {
+
+    public static <T> void printData(T data) {
+
+        System.out.println(data);
+    }
+
+    public static void main(String[] args) {
+
+        printData("Java");
+
+        printData(100);
+
+        printData(10.5);
+    }
+}
+
+Output :
+
+Java
+100
+10.5
+
+
+6. What are Bounded Type Parameters?
+Bounded type parameters allow us to restrict which data types can be used with Generics.
+
+We use the extends keyword to define an upper bound.
+
+
+7. What are Wildcards in Generics?
+A wildcard is represented by ?.
+
+It means an unknown type.
+
+Wildcards are useful when we want a method to accept collections with different generic types.
+
+There are three important types:

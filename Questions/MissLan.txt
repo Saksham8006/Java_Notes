@@ -1,0 +1,77 @@
+✅ Core Java
+ 1. What are the differences between HashMap, ConcurrentHashMap, and Hashtable?
+ • Discuss concurrency, synchronization, and performance.
+ 2. Explain memory management in Java (Heap, Stack, GC).
+ • When does GC occur? What are strong/weak references?
+ 3. How does Java handle multithreading?
+ • ExecutorService, Callable, Future, CompletableFuture, deadlocks.
+ 4. What is the difference between final, finally, and finalize()?
+ 5. Explain the SOLID principles.
+ 6. What are Lambda Expressions and Functional Interfaces in Java 8?
+ 7. Explain JVM memory management, including Heap, Stack, and Garbage Collection.
+ 8. What is deadlock in Java? How can we prevent it?
+ 9. What is the difference between synchronized and volatile?
+ 10. What is the difference between Thread and Runnable?
+ 11. What is the difference between Comparable and Comparator?
+ 12. What is the difference between HashSet, LinkedHashSet, and TreeSet?. 
+ 13. How does HashMap work internally in Java?
+ 14. What is the difference between ArrayList and LinkedList?
+ 15. What are the four pillars of OOPs? Explain with real-world examples.
+16. What is the difference between method overloading and method overriding?
+17. What is the difference between an abstract class and an interface?
+18. What is the difference between this and super keywords?
+19. Does Java support multiple inheritance? How does Java achieve multiple inheritance using interfaces?
+20. What is the difference between String, StringBuilder, and StringBuffer?
+21. Why is String immutable in Java? What are the advantages of String immutability?
+22. What are the main features of Java? Why is Java platform-independent?
+
+
+⸻
+
+✅ Spring Boot & Spring Framework
+ 1. How does Spring Dependency Injection work internally?
+ 2. Difference between @Component, @Service, @Repository, and @Controller.
+ 3. What is the Spring Bean lifecycle?
+ 4. What is the use of @Transactional? What are the pitfalls?
+ 5. Explain how Spring Boot auto-configuration works.
+ 6. How to handle exceptions in Spring REST APIs?
+ • @ControllerAdvice, @ExceptionHandler.
+ 7. What is the difference between RestTemplate, WebClient, and FeignClient?
+ 8. What is the difference between Spring Boot and Spring MVC?
+ 9. What is the difference between @Bean and @Component?
+10. What is the difference between @Autowired, @Qualifier, and @Primary?
+11. What are Spring Boot Profiles? How do you use them?
+12. What is the difference between application.properties and application.yml?
+13. What is Spring Boot Actuator?
+14. How does Spring Boot handle embedded servers?
+15. What is the difference between CommandLineRunner and ApplicationRunner?
+16. What is the difference between Filter, Interceptor, and AOP?
+17. How does Spring Security work internally?
+18. What is JWT authentication, and how do you implement it in Spring Boot?
+19. How do you implement pagination and sorting in Spring Boot?
+20. How do you validate request data using @Valid and @Validated?
+
+⸻
+
+✅ Microservices & Cloud
+ 1. What is Circuit Breaker? How does Resilience4j or Hystrix work?
+ 2. How do you ensure communication between microservices is secure?
+ 3. Service Discovery: Eureka vs Consul – pros & cons?
+ 4. Explain API Gateway pattern and its use.
+ 5. How do you handle distributed tracing and logging?
+
+⸻
+
+✅ Database & JPA
+ 1. How does Hibernate manage caching (1st level vs 2nd level)?
+ 2. What is N+1 select problem? How do you avoid it in Spring Data JPA?
+ 3. Optimistic vs Pessimistic locking in JPA.
+ 4. Difference between fetch = FetchType.LAZY and EAGER.
+
+⸻
+
+✅ DevOps / CI/CD / Testing
+ 1. How do you create Docker containers for Spring Boot apps?
+ 2. What is your typical CI/CD pipeline (Jenkins/GitHub Actions)?
+ 3. How do you write integration tests with Spring Boot?
+ • @SpringBootTest, @DataJpaTest, Testcontainers.

@@ -1,0 +1,49 @@
+ JDBC (Java Database Connectivity)
+
+JDBC stands for Java Database Connectivity.
+
+It is a Java API that allows Java applications to communicate with databases.
+
+Using JDBC, we can perform database operations such as:
+
+> Insert records.
+> Update records.
+> Delete records.
+> Retrieve records.
+> Execute SQL queries.
+In simple words, JDBC acts as a bridge between a Java application and a database.
+
+Example: Connecting Java with MySQL
+
+First, add the MySQL Connector/J JDBC driver to your project.
+
+For Maven:
+
+
+xml
+<dependency>
+    <groupId>com.mysql</groupId>
+    <artifactId>mysql-connector-j</artifactId>
+    <version>9.5.0</version>
+</dependency>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=====================================================================
+
+
+
+

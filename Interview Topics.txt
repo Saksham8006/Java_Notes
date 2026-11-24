@@ -1,0 +1,9 @@
+1. Lazy Initialization
+2. @cacheable
+3. Spring Security, how can you authorize a public API with spring security?
+4. Spring batch Processing
+5. Spring Max File Upload
+6. Bean
+7. Jackson Seriolization issues missing getters
+8. How would you manage centeralized Configuration management?
+9. Bean Definition Exception
