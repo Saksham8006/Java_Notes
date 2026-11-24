@@ -1,0 +1,337 @@
+1. Transactions (ACID)
+
+Ans : 
+
+A transaction is a group of database operations that are executed as a single unit.
+
+A transaction follows the ACID properties to ensure data consistency and reliability.
+
+ACID stands for:
+
+A – Atomicity
+
+C – Consistency
+
+I – Isolation
+
+D – Durability
+
+Let's understand each with a simple example.
+
+1. Atomicity
+Definition: All operations in a transaction must succeed, or none of them should happen.
+
+Example: Bank Transfer
+
+Suppose Rahul transfers ₹1,000 from Account A to Account B.
+
+Two operations happen:
+
+Deduct ₹1,000 from Account A.
+
+Add ₹1,000 to Account B.
+
+If money is deducted from Account A but adding money to Account B fails, the transaction should be rolled back.
+
+So, either both operations succeed or both fail.
+
+
+2. Consistency
+Definition: A transaction must keep the database in a valid state by following all defined rules and constraints.
+
+Example:
+
+Suppose the total balance of two bank accounts is ₹10,000.
+
+Account A = ₹6,000
+
+Account B = ₹4,000
+
+After transferring ₹1,000:
+
+Account A = ₹5,000
+
+Account B = ₹5,000
+
+The total balance remains ₹10,000.
+
+The database must maintain its defined rules before and after the transaction.
+
+3. Isolation
+Definition: Multiple transactions running at the same time should not interfere with each other.
+
+Example:
+
+Suppose two users try to book the same movie seat at the same time.
+
+User A tries to book seat 10.
+
+User B also tries to book seat 10.
+
+The database should ensure that only one user successfully books the seat.
+
+This prevents problems caused by concurrent transactions.
+
+
+4. Durability
+Definition: Once a transaction is successfully committed, its changes are permanently saved, even if the application crashes or the system restarts.
+
+Example:
+
+Suppose Rahul transfers ₹1,000 to another account.
+
+The transaction is committed successfully.
+
+Even if the server crashes immediately afterward, the database should preserve the updated account balances.
+
+
+Real-time Java Spring Boot Example
+In Spring Boot, we use the @Transactional annotation to manage database transactions.
+
+@Service
+public class BankService {
+
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @Transactional
+    public void transferMoney(
+            Long fromId, Long toId, double amount) {
+
+        Account from = accountRepository.findById(fromId)
+                .orElseThrow();
+
+        Account to = accountRepository.findById(toId)
+                .orElseThrow();
+
+        from.setBalance(from.getBalance() - amount);
+
+        to.setBalance(to.getBalance() + amount);
+
+        accountRepository.save(from);
+        accountRepository.save(to);
+    }
+}
+
+
+How does it work?
+
+If both operations succeed, the transaction is committed.
+
+If a runtime exception occurs, the transaction is rolled back by default.
+
+Both database operations are treated as one transaction.
+
+Note: Spring's @Transactional rolls back by default for unchecked exceptions (RuntimeException and Error), not every exception.
+
+
+Q: What happens if an exception occurs inside a @Transactional method?
+
+Answer: If a runtime exception occurs, Spring rolls back the database transaction by default, so the changes made within that transaction are not committed.
+
+Q: What is the difference between COMMIT and ROLLBACK?
+
+COMMIT: Permanently saves transaction changes.
+
+ROLLBACK: Cancels transaction changes.
+
+Q: Why do we need transactions?
+
+Answer: We need transactions to maintain data consistency, prevent partial updates, and ensure reliable database operations.
+
+
+
+
+===========================================================================================
+
+
+
+Joins & Subqueries 
+
+
+A JOIN in SQL is used to combine data from two or more tables based on a related column between them.
+
+For example, suppose we have two tables: Employee and Department.
+
+There are mainly four types of JOINs.
+
+1. INNER JOIN
+Definition: INNER JOIN returns only the matching records from both tables.
+
+example :
+
+SELECT e.emp_name, d.dept_name
+FROM Employee e
+INNER JOIN Department d
+ON e.dept_id = d.dept_id;
+
+
+2. LEFT JOIN (LEFT OUTER JOIN)
+Definition: LEFT JOIN returns all records from the left table and matching records from the right table.
+
+If no matching record exists, NULL is returned for right-table columns.
+
+example :
+
+SELECT e.emp_name, d.dept_name
+FROM Employee e
+LEFT JOIN Department d
+ON e.dept_id = d.dept_id;
+
+3. RIGHT JOIN (RIGHT OUTER JOIN)
+Definition: RIGHT JOIN returns all records from the right table and matching records from the left table.
+
+Example:
+
+
+SELECT e.emp_name, d.dept_name
+FROM Employee e
+RIGHT JOIN Department d
+ON e.dept_id = d.dept_id;
+
+
+4. FULL OUTER JOIN
+Definition: FULL OUTER JOIN returns all records from both tables.
+
+If records match, they are combined. If they don't match, missing columns contain NULL.
+
+Example:
+
+
+SELECT e.emp_name, d.dept_name
+FROM Employee e
+FULL OUTER JOIN Department d
+ON e.dept_id = d.dept_id;
+
+
+2. Subqueries in SQL
+Interview Answer:
+
+A subquery is a query written inside another SQL query.
+
+It is also called an inner query or nested query.
+
+The result of the inner query is used by the outer query.
+
+Question: Find employees whose salary is greater than the average salary.
+
+
+sql
+SELECT *
+FROM Employee
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM Employee
+);
+How does it work?
+
+Step 1: Inner query executes:
+
+
+sql
+SELECT AVG(salary)
+FROM Employee;
+Result = ₹45,000.
+
+Step 2: Outer query executes:
+
+
+sql
+SELECT *
+FROM Employee
+WHERE salary > 45000;
+
+
+===========================================================================================
+
+
+
+Indexing in Database (SQL)
+
+Indexing is a database technique used to improve the speed of data retrieval from a table.
+
+An index works like an index in a book. Instead of searching every page to find a topic, we use the book's index to quickly locate it.
+
+Similarly, a database uses an index to find records faster without scanning the entire table.
+
+1. Why do we need Indexing?
+Suppose we have an Employee table containing 1 lakh records.
+
+Now execute this query:
+
+SELECT *
+FROM Employee
+WHERE emp_id = 5000;
+
+Without Indexing:
+
+Database may check records one by one.
+
+This is called a Full Table Scan.
+
+It can take more time for large tables.
+
+With Indexing:
+
+Database can use the index to locate the required record quickly.
+
+It avoids scanning the entire table in suitable cases.
+
+2. How to Create an Index?
+We can create an index using the CREATE INDEX statement.
+
+Example:
+
+CREATE INDEX idx_emp_name
+ON Employee(emp_name);
+
+
+Now execute:
+
+
+SELECT *
+FROM Employee
+WHERE emp_name = 'Rahul';
+The database may use the index on emp_name to find Rahul's record faster.
+
+To delete an index:
+
+DROP INDEX idx_emp_name;
+
+
+4. Advantages of Indexing
+Improves SELECT query performance.
+
+Reduces unnecessary table scanning.
+
+Helps in searching and sorting data.
+
+Improves performance of JOIN operations when appropriate indexes exist.
+
+Can enforce uniqueness using unique indexes.
+
+5. Disadvantages of Indexing
+Requires additional disk space.
+
+INSERT operations can become slower.
+
+UPDATE operations can become slower when indexed columns change.
+
+DELETE operations may require index maintenance.
+
+Too many indexes can affect overall database performance.
+
+In a Java Spring Boot application, we don't need to write special Java code to use this index.
+
+When Spring Data JPA executes the SQL query, the database optimizer decides whether to use the available index.
+
+
+Q. What is the difference between Primary Key and Index?
+
+Answer:
+
+A primary key uniquely identifies each record and does not allow NULL values.
+
+An index is a data structure used to improve data retrieval performance.
+
+A primary key generally creates an index automatically, depending on the database.
