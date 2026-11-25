@@ -335,3 +335,243 @@ A primary key uniquely identifies each record and does not allow NULL values.
 An index is a data structure used to improve data retrieval performance.
 
 A primary key generally creates an index automatically, depending on the database.
+
+
+============================================================================
+
+Normalization in DBMS (Database) : 
+
+Normalization is the process of organizing data in a database to reduce duplicate data and avoid data-related problems.
+
+In simple words, normalization means storing data properly by dividing large tables into smaller related tables.
+
+
+============================================================================
+
+Query Optimization in SQL
+
+Query Optimization is the process of improving SQL queries so that they execute faster and use fewer resources.
+
+In simple words, query optimization means writing SQL queries in such a way that the database retrieves data quickly without doing unnecessary work.
+
+1. Example
+Suppose we have an Employee table containing 1 lakh records.
+We want to find an employee named Rahul.
+
+Without optimization:
+SELECT * FROM Employee;
+
+This retrieves all employee records, even though we only need Rahul's details.
+
+With optimization:
+
+SELECT * FROM Employee
+WHERE name = 'Rahul';
+
+2. Techniques for Query Optimization : 
+
+1. Use Indexing : Create an index on frequently searched columns.
+
+CREATE INDEX idx_name
+ON Employee(name);
+
+2. Avoid SELECT * : Instead of fetching all columns, fetch only the required columns.
+
+-- Not recommended
+SELECT * FROM Employee;
+
+-- Recommended
+SELECT emp_id, name FROM Employee;
+
+3. Use WHERE Clause
+Use WHERE to filter unnecessary records.
+
+SELECT * FROM Employee
+WHERE salary > 30000;
+
+4. Avoid Unnecessary Joins
+Use only the tables required for your query.
+
+5. Use LIMIT
+Fetch only the required number of records.
+
+SELECT * FROM Employee
+LIMIT 10;
+
+6. Use EXISTS Instead of IN (when appropriate)
+
+For some queries, EXISTS can perform better than IN. Always check the execution plan because performance depends on the database and query.
+
+
+3. Advantages of Query Optimization : 
+
+A.Improves query execution speed.
+B. Reduces database load.
+C. Saves system resources.
+D. Improves application performance.
+E. Handles large amounts of data efficiently.
+
+4. How to Check Query Performance?
+We can use the EXPLAIN command to understand how a database executes a query.
+
+Example:
+
+EXPLAIN
+SELECT * FROM Employee
+WHERE name = 'Rahul';
+It shows the execution plan, such as whether the database uses an index or scans the entire table.
+
+============================================================================
+
+
+Stored Procedures in SQL : 
+
+A Stored Procedure is a group of SQL statements stored in the database that we can execute whenever required.
+
+In simple words, instead of writing the same SQL query again and again, we write it once, save it in the database, and call it whenever needed.
+
+1. Example of Stored Procedure
+Suppose we have an Employee table and we want to fetch all employee records.
+
+We can create a stored procedure:
+
+DELIMITER //
+CREATE PROCEDURE GetAllEmployees()
+BEGIN
+    SELECT * FROM Employee;
+END //
+DELIMITER ;
+
+Here:
+
+CREATE PROCEDURE creates a stored procedure.
+GetAllEmployees() is the procedure name.
+BEGIN starts the procedure.
+END ends the procedure.
+
+2. How to Execute a Stored Procedure?
+We use the CALL statement.
+
+CALL GetAllEmployees();
+This executes the stored procedure and returns all employee records.
+
+
+3. Stored Procedure with Parameters
+Suppose we want to find an employee using their ID.
+
+DELIMITER //
+CREATE PROCEDURE GetEmployeeById(IN empId INT)
+BEGIN
+    SELECT * FROM Employee
+    WHERE emp_id = empId;
+END //
+DELIMITER ;
+
+
+To execute:
+
+CALL GetEmployeeById(101);
+It returns the employee whose ID is 101.
+IN means we are passing a value into the stored procedure.
+
+
+4. Types of Parameters
+There are three types of stored procedure parameters:
+
+Parameter :   Meaning
+
+IN : Takes input from the user
+OUT : Returns a value from the procedure
+INOUT : Takes input and can also return an updated value
+
+5. Advantages of Stored Procedures
+Code Reusability: Write once and execute multiple times.
+Performance: Can reduce repeated SQL parsing and network communication.
+Security: Access can be controlled through procedure permissions.
+Maintainability: SQL logic can be maintained in one place.
+
+
+8. Stored Procedure in Java Full Stack
+In Java, we can call a stored procedure using JDBC's CallableStatement.
+
+Example:
+
+Connection con = DriverManager.getConnection(
+    url, username, password
+);
+
+CallableStatement cs =
+    con.prepareCall("{CALL GetEmployeeById(?)}");
+
+cs.setInt(1, 101);
+
+ResultSet rs = cs.executeQuery();
+
+while (rs.next()) {
+    System.out.println(rs.getString("name"));
+}
+
+cs.close();
+con.close();
+Here:
+
+CallableStatement is used to call stored procedures.
+setInt() passes the employee ID.
+executeQuery() executes the procedure and gets the result.
+
+
+=========================================================================
+
+> Database Relationships in DBMS : 
+
+Database relationships define how two or more tables are connected to each other using keys.
+In simple words, relationships help us connect data from different tables.
+For example, a Student table and a Course table can be connected using student_id or course_id.
+
+There are mainly 3 types of database relationships:
+1. One-to-One Relationship (1:1)
+One record in Table A is connected to only one record in Table B, and vice versa.
+
+Example: Person and Passport.
+One person has one passport.
+One passport belongs to one person.
+
+Example tables:
+
+Person Table :
+person_id  name
+
+1          Rahul
+2          Amit
+
+Passport Table :
+
+passport_id    person_id
+
+101             1
+102             2
+
+Here, person_id in the Passport table is a Foreign Key.
+
+2. One-to-Many Relationship (1:M)
+One record in Table A can be connected to multiple records in Table B.
+One department can have many employees.
+One employee belongs to one department.
+
+
+3. Many-to-Many Relationship (M:N)
+Multiple records in Table A can be connected to multiple records in Table B.
+
+Example: Students and Courses.
+One student can enroll in multiple courses.
+One course can have multiple students.
+
+To implement this relationship, we create an additional table called a Junction Table (or Bridge Table).
+
+Important SQL Concepts
+To create database relationships, we mainly use:
+
+Primary Key (PK): Uniquely identifies each record in a table.
+Foreign Key (FK): Connects one table to another table.
+Junction Table: Connects two tables in a many-to-many relationship.
+
