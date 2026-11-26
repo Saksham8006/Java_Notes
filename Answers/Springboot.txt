@@ -1,0 +1,603 @@
+What is bean in Spring Boot?
+Ans: 
+In Spring Boot, a Bean is simply an object that is created, managed, and maintained by the Spring IoC Container.
+
+Let's understand with an example.
+1. Without Spring Bean
+Normally, we create objects manually using new:
+
+public class EmployeeService {
+
+    public void getEmployee() {
+        System.out.println("Getting Employee");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        EmployeeService service = new EmployeeService();
+
+        service.getEmployee();
+    }
+}
+Here, we manage the object ourselves.
+
+2. With Spring Bean
+Spring manages the object for us.
+import org.springframework.stereotype.Service;
+
+@Service
+public class EmployeeService {
+
+    public void getEmployee() {
+        System.out.println("Getting Employee");
+    }
+}
+
+
+Now Spring automatically creates and manages the EmployeeService object.
+This object is called a Spring Bean.
+
+3. How to use this Bean?
+We use Dependency Injection (@Autowired):
+@RestController
+public class EmployeeController {
+
+    private final EmployeeService employeeService;
+
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+}
+
+
+Spring automatically injects the EmployeeService bean into the controller.
+Annotation : 	Purpose
+@Component : 	General-purpose Bean
+@Service : 	Service layer Bean
+@Repository : 	Database layer Bean
+@Controller : 	MVC Controller Bean
+@RestController : 	REST API Controller Bean
+
+Q. what is IOC Container?
+Ans. 
+
+IoC (Inversion of Control) Container is the core part of the Spring Framework that manages the complete lifecycle of Spring Beans.
+In simple words, IoC Container creates objects, manages them, and injects dependencies wherever required.
+Let's understand step by step.
+1. Without IoC Container
+Suppose you have two classes:
+public class EmployeeRepository {
+
+    public void getData() {
+        System.out.println("Fetching employee data");
+    }
+}
+public class EmployeeService {
+
+    EmployeeRepository repository = new EmployeeRepository();
+
+    public void getEmployee() {
+        repository.getData();
+    }
+}
+
+Here:
+- EmployeeService creates EmployeeRepository itself.
+- Both classes are tightly coupled.
+- We manage object creation manually.
+
+2. With IoC Container
+First, tell Spring to manage these classes:
+@Repository
+public class EmployeeRepository {
+
+    public void getData() {
+        System.out.println("Fetching employee data");
+    }
+}
+
+
+@Service
+public class EmployeeService {
+
+    private final EmployeeRepository repository;
+
+    public EmployeeService(EmployeeRepository repository) {
+        this.repository = repository;
+    }
+
+    public void getEmployee() {
+        repository.getData();
+    }
+}
+
+
+Now Spring automatically:
+1. Creates the EmployeeRepository object.
+2. Creates the EmployeeService object.
+3. Injects EmployeeRepository into EmployeeService.
+4. Manages their lifecycle.
+This management is done by the IoC Container.
+IoC Container → Manages objects.
+Bean → Object managed by Spring.
+Dependency Injection → Injects one bean into another.
+
+Spring Bean Lifecycle
+Spring Bean Lifecycle means the complete journey of a Spring Bean, from its creation to its destruction.
+
+In simple words, it explains how Spring creates, initializes, uses, and destroys an object.
+
+
+============================================================================
+
+Spring Boot Architecture : 
+
+Spring Boot architecture defines how different components of a Spring Boot application work together to process a request and return a response.
+Spring Boot generally follows a layered architecture, where each layer has its own responsibility. This makes the application easy to develop,
+maintain, and test.
+
+There are mainly four important layers:
+
+1. Controller Layer : 
+It handles incoming HTTP requests from the client.
+It receives requests and sends responses.
+It communicates with the Service layer.
+
+Example: UserController.java
+
+2. Service Layer : 
+It contains the business logic of the application.
+It performs validations and calculations.
+It communicates with the Repository layer.
+
+Example: UserService.java
+
+3. Repository Layer : 
+It handles database-related operations.
+It performs CRUD operations (Create, Read, Update, Delete).
+It commonly uses Spring Data JPA to interact with the database.
+
+Example: UserRepository.java
+
+4. Entity Layer : 
+It represents database tables.
+Its variables generally represent table columns.
+It is commonly created using the @Entity annotation.
+
+===========================================================================
+
+
+RESTful APIs : 
+
+REST stands for Representational State Transfer. It is an architectural style used to build web services that allow two applications
+to communicate with each other over HTTP.
+In simple words, a REST API allows a client (like a browser or mobile application) to communicate with a backend server and exchange data.
+For example, suppose we have a Student Management application. We can use REST APIs to:
+1. Add a new student.
+2. Get all students.
+3. Update student details.
+4. Delete a student.
+
+REST APIs generally exchange data in JSON format.
+
+
+=========================================================================
+
+
+Spring Data JPA : 
+
+Spring Data JPA is a part of the Spring framework that makes it easier to interact with databases without writing too much SQL code.
+In simple words, Spring Data JPA helps us perform database operations like Insert, Update, Delete, and Fetch using predefined methods.
+It internally uses JPA (Java Persistence API) to interact with the database.
+
+For example, normally we need to write SQL queries to fetch or insert data. But using Spring Data JPA, we can use predefined methods like:
+
+1. save() – Insert or update records.
+2. findAll() – Fetch all records.
+3. findById() – Fetch a record by ID.
+4. deleteById() – Delete a record by ID.
+
+ Difference Between JPA, Hibernate, and Spring Data JPA
+
+Technology  :    Meaning
+
+JPA : Specification that defines how Java objects interact with databases.
+Hibernate  : ORM framework that implements JPA.
+Spring Data JPA   :  Provides repository interfaces and simplifies database operations using JPA.
+
+> Simple example to remember:
+1. JPA defines the rules.
+2. Hibernate implements those rules.
+3. Spring Data JPA makes using those rules easier.
+
+
+============================================================================
+
+
+What is Hibernate ORM?
+
+Ans. 
+
+Hibernate is an ORM (Object Relational Mapping) framework in Java that helps us interact with databases without writing SQL queries manually
+for every operation.
+In simple words, Hibernate converts Java objects into database records and database records back into Java objects.
+For example, suppose we have a Java class called Student. Hibernate can map this class to a student table in the database.
+Instead of writing SQL queries manually, we can use Hibernate methods to perform operations like Insert, Update, Delete, and Fetch.
+
+
+What is ORM?
+ORM stands for Object Relational Mapping.
+
+It is a technique that connects Java objects with database tables.
+
+
+============================================================================
+
+Entity Relationships in Hibernate / Spring Data JPA : 
+
+Entity relationships define how two or more database tables are connected to each other.
+In Spring Boot, we use JPA annotations to establish relationships between Java entity classes.
+For example, suppose we have two tables: Student and Address.
+
+A student has an address, so we need to establish a relationship between these two entities.  
+JPA provides four main types of relationships:
+
+One-to-One
+One-to-Many
+Many-to-One
+Many-to-Many
+
+
+============================================================================
+
+JPQL & Native Queries : 
+
+JPQL stands for Java Persistence Query Language. It is a query language used in JPA to perform database operations using Entity classes
+and their fields instead of database table and column names.
+In simple words, JPQL allows us to write database queries using Java entity objects rather than directly using database tables.
+
+Example:
+
+Suppose we have a Student entity with fields id, name, and email.
+
+
+java
+@Query("SELECT s FROM Student s WHERE s.name = :name")
+List<Student> findByStudentName(@Param("name") String name);
+Here:
+
+Student is the Entity class name.
+s is an alias.
+s.name is the entity field name.
+:name is a named parameter.
+Important: JPQL uses entity names and Java field names, not database table and column names.
+
+What is a Native Query?
+A Native Query allows us to write SQL queries directly according to the database structure.
+
+In simple words, instead of using Entity class names and fields, we use actual database table names and column names.
+
+Example:
+
+
+java
+@Query(
+    value = "SELECT * FROM student WHERE name = :name",
+    nativeQuery = true
+)
+List<Student> findByStudentName(@Param("name") String name);
+Here:
+student is the actual database table name.
+name is the database column name.
+nativeQuery = true tells Spring Data JPA that this is a native SQL query.
+
+
+===========================================================================
+
+DTO & Mapping : 
+
+DTO stands for Data Transfer Object.
+It is a Java class used to transfer data between different layers of an application, especially between the backend and the client.
+In simple words, DTO helps us send only the required data to the client instead of exposing the complete Entity class.
+Example:
+
+Suppose we have a User Entity containing:
+
+id
+name
+email
+password
+createdDate
+
+But when we send user details to the frontend, we only want to share:
+
+id
+name
+email
+
+Instead of returning the Entity directly, we create a UserDTO containing only the required fields.
+This also helps us avoid exposing sensitive information like passwords.
+
+What is MapStruct?
+MapStruct is a Java library that automatically generates mapping code between different Java objects.
+
+Instead of manually writing getter and setter code, MapStruct generates the mapping implementation during compilation.
+
+Example:
+
+@Mapper(componentModel = "spring")
+public interface UserMapper {
+
+    UserDTO toDTO(User user);
+
+    User toEntity(UserDTO dto);
+}
+
+
+Here:
+
+@Mapper defines the mapper interface.
+componentModel = "spring" makes the generated mapper available as a Spring Bean.
+toDTO() converts Entity into DTO.
+toEntity() converts DTO into Entity.
+
+
+
+=============================================================================
+
+Global Exception Handling : 
+
+Global Exception Handling is a mechanism in Spring Boot used to handle exceptions from the entire application at one central place instead
+of writing try-catch blocks in every Controller or Service method.
+In simple words, it helps us manage all application errors in one common class and return proper error responses to the client.
+For example, suppose a user requests a student record with ID 100, but that student does not exist in the database.
+Instead of showing a Java error or server error, we can handle the exception and return a meaningful response like:
+
+
+json
+{
+  "status": 404,
+  "message": "Student not found"
+}
+
+Why Do We Need Global Exception Handling?
+There are several reasons:
+
+Centralized Handling: We can handle exceptions at one common place.
+
+Code Reusability: No need to write the same try-catch code in multiple methods.
+
+Meaningful Responses: We can return proper error messages to the client.
+
+Easy Maintenance: Exception-handling logic becomes easier to manage.
+
+Better API Design: We can return appropriate HTTP status codes like 400, 404, and 500.
+
+3. Important Annotations Used in Global Exception Handling
+Spring Boot provides some important annotations:
+
+Annotation               Purpose
+
+@ControllerAdvice   :   Handles exceptions globally across controllers.
+@RestControllerAdvice  :  Global exception handling for REST APIs.
+@ExceptionHandler   :   Handles a specific exception type.
+@ResponseStatus    :   Defines the HTTP status code for a response.
+
+
+4. How to Implement Global Exception Handling?
+Let's understand with a simple Student Management example.
+
+Step 1: Create a Custom Exception
+
+First, create a custom exception for when a student is not found.
+
+public class StudentNotFoundException
+        extends RuntimeException {
+
+    public StudentNotFoundException(String message) {
+        super(message);
+    }
+}
+Here, we extend RuntimeException to create our own exception class.
+
+Step 2: Throw Exception from Service Layer
+
+@Service
+public class StudentService {
+
+    public Student getStudentById(Long id) {
+
+        return studentRepository.findById(id)
+            .orElseThrow(() ->
+                new StudentNotFoundException(
+                    "Student not found with id: " + id
+                )
+            );
+    }
+}
+If the student does not exist, our custom exception will be thrown.
+
+Step 3: Create Global Exception Handler
+
+Now create a common exception-handling class.
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(StudentNotFoundException.class)
+    public ResponseEntity<String> handleStudentNotFound(
+            StudentNotFoundException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGeneralException(
+            Exception ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Something went wrong");
+    }
+}
+
+Here:
+
+@RestControllerAdvice makes this class available for global REST exception handling.
+@ExceptionHandler handles the specified exception.
+StudentNotFoundException.class handles our custom exception.
+Exception.class handles other unexpected exceptions.
+ResponseEntity allows us to control the response body and HTTP status code.
+
+=========================================================================
+
+
+Spring Profiles : 
+
+Spring Profiles are used to manage different configurations for different environments in a Spring Boot application.
+In simple words, Spring Profiles allow us to maintain different settings for development, testing, and production environments without
+changing the application code.
+For example, suppose we are working on a project that has three environments:
+
+Dev: Used by developers for development.
+Test: Used for testing the application.
+Prod: Used when the application is running for real users.
+
+Each environment may have a different database URL, username, password, or server configuration.
+Instead of manually changing these values every time, we use Spring Profiles.
+
+Why Do We Use Spring Profiles?
+Environment Management: Maintain separate configurations for Dev, Test, and Prod.
+Easy Configuration: No need to change Java code when switching environments.
+Database Management: Use different databases for different environments.
+Flexibility: Activate the required profile whenever needed.
+Maintainability: Keep environment-specific configurations separate.
+
+How to Create Spring Profiles?
+Spring Boot allows us to create separate configuration files for different environments.
+
+For example:
+text
+src/main/resources/
+    application.properties
+    application-dev.properties
+    application-test.properties
+    application-prod.properties
+Each file contains configuration for a particular environment.
+
+How to Activate a Spring Profile?
+There are multiple ways to activate a profile.
+
+Method 1: Using application.properties
+
+
+properties
+spring.profiles.active=dev
+This activates the development profile by default.
+
+What is @Profile Annotation?
+The @Profile annotation is used when we want to create or activate specific Spring Beans only for a particular environment.
+
+Difference Between @Profile and spring.profiles.active
+Both are used in Spring Boot to work with different environments, but their purposes are different.
+
+1. What is spring.profiles.active?
+spring.profiles.active is a configuration property used to activate a particular Spring Profile.
+
+For example:
+properties
+spring.profiles.active=dev
+Here, Spring Boot activates the dev profile and loads the configuration from application-dev.properties.
+
+We can also activate profiles using the command line:
+
+bash
+java -jar app.jar --spring.profiles.active=prod
+2. What is @Profile?
+@Profile is an annotation used to register specific Spring Beans only when a particular profile is active.
+
+Example:
+java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    @Profile("dev")
+    public String devConfig() {
+        return "Development Configuration";
+    }
+
+    @Bean
+    @Profile("prod")
+    public String prodConfig() {
+        return "Production Configuration";
+    }
+}
+Here:
+
+If the dev profile is active, only the dev bean is registered.
+If the prod profile is active, only the prod bean is registered.
+
+======================================================================
+
+Logging : 
+
+Logging is the process of recording information about what is happening inside an application while it is running.
+In simple words, logging helps developers track application activities, identify errors, and debug problems without stopping the application.
+
+How to Implement Logging in Spring Boot?
+Spring Boot commonly uses SLF4J as the logging API and Logback as the default logging implementation.
+
+First, create a logger using LoggerFactory.
+
+Example:
+
+
+java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@Service
+public class UserService {
+
+    private static final Logger logger =
+            LoggerFactory.getLogger(UserService.class);
+
+    public void getUser() {
+
+        logger.info("Fetching user details");
+
+        try {
+            // Business logic
+            logger.debug("User data processing");
+
+        } catch (Exception e) {
+            logger.error("Error while fetching user", e);
+        }
+    }
+}
+Here:
+
+LoggerFactory creates the logger.
+logger.info() records general information.
+logger.debug() records debugging information.
+logger.error() records errors.
+Passing the exception as the second argument logs its stack trace.
+
+Alternative: We can use Lombok's @Slf4j annotation to avoid creating the logger manually.
+
+
+java
+@Slf4j
+@Service
+public class UserService {
+
+    public void getUser() {
+        log.info("Fetching user details");
+        log.error("Something went wrong");
+    }
+}
