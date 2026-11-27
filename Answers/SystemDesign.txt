@@ -1,0 +1,88 @@
+What is System Design?
+Ans. 
+
+System Design is the process of planning how different parts of a software application will work together to build a reliable, scalable, and efficient
+system.
+In simple words: System Design means deciding how to build a software application, how its components communicate, and how it handles users and data.
+
+Example: When designing WhatsApp, we think about:
+1. How users send and receive messages.
+2. How messages are stored.
+3. How millions of users can use it at the same time.
+4. How to keep messages secure.
+
+===================
+
+Monolithic vs Microservices Architecture : 
+Ans. 
+1. Monolithic Architecture
+In Monolithic Architecture, the entire application is built as one single unit. All features are part of the same codebase.
+Example: An e-commerce application where login, products, payments, and orders are all part of one application.
+
+2. Microservices Architecture
+In Microservices Architecture, the application is divided into small, independent services. Each service handles a specific task.
+Example: An e-commerce application has separate services for login, products, payments, and orders.
+Each service works independently.
+Services can be developed and deployed separately.
+Easy to scale individual services.
+More complex to manage because services need to communicate with each other.
+
+====================
+
+Vertical vs Horizontal Scaling : 
+
+1. Vertical Scaling (Scaling Up)
+Vertical Scaling means increasing the power of an existing server by adding more CPU, RAM, or storage.
+Example:
+Initially, your server has 4 GB RAM.
+You upgrade it to 16 GB RAM.
+Now the same server can handle more requests.
+
+2. Horizontal Scaling (Scaling Out)
+Horizontal Scaling means adding more servers to handle increasing traffic.
+
+Example:
+Initially, you have 1 server.
+As users increase, you add 3 more servers.
+A Load Balancer distributes requests across all servers.
+
+Advantages:
+1. Handles more users.
+2. Better availability and fault tolerance.
+3. Can add more servers as needed.
+
+Disadvantages:
+1. More complex to manage.
+2. Requires load balancing.
+3. Data synchronization can be challenging.
+Real-life example:
+Vertical: Giving one worker a more powerful machine to work faster.
+Horizontal: Hiring more workers to share the workload.
+
+=======================
+
+Scalability and Availability : 
+1. Scalability
+Scalability means the ability of a system to handle increasing users or traffic without slowing down.
+
+Example:
+
+Imagine your shopping application initially has 100 users. Later, it grows to 1 million users.
+Your system should handle this increased traffic smoothly.
+We can achieve scalability using:
+Vertical Scaling (adding more CPU and RAM).
+Horizontal Scaling (adding more servers).
+Load Balancing.
+
+2. Availability
+Availability means the ability of a system to remain up and running and accessible to users whenever they need it.
+
+Example:
+Imagine you are using Amazon to purchase something. Even if one server fails, another server should handle your request so the application keeps working.
+
+We can improve availability using:
+Multiple servers.
+Replication.
+Failover mechanisms.
+Load Balancers.
+
