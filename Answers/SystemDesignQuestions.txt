@@ -1,0 +1,112 @@
+Interview questions:
+
+1. What is System Design?
+2. Monolithic vs Microservices?
+3. What is horizontal scaling?
+4. How do you make an application highly available?
+5. What is a single point of failure?
+6. Explain what happens when you enter a URL in a browser.
+7. How does HTTPS work?
+8. REST API vs WebSocket?
+9. What is a reverse proxy?
+10. How does DNS resolve a domain name?
+11. When would you choose PostgreSQL over MongoDB?
+12. What is database indexing?
+13. What is database sharding?
+14. How does database replication work?
+15. How do you optimize a slow database query?
+16. What are ACID properties?
+17. What is load balancing?
+18. How does Redis improve performance?
+19. What is cache invalidation?
+20. How would you handle 1 million API requests?
+21. What is rate limiting?
+22. How do you prevent database overload?
+23. Explain CAP Theorem.
+24. What is eventual consistency?
+25. What is distributed locking?
+26. What is the Saga Pattern?
+27. How do you prevent duplicate payment processing?
+28. How do distributed services communicate reliably?
+29. What is Kafka?
+30. Kafka vs RabbitMQ?
+31. What happens if a consumer goes down?
+32. How do you handle failed messages?
+33. What is a Dead Letter Queue?
+34. How do you prevent duplicate message processing?
+35. How does API Gateway work?
+36. What is Circuit Breaker?
+37. How do microservices communicate?
+38. How do you handle service failure?
+39. How do you maintain consistency between microservices?
+40. Why should microservices have separate databases?
+
+
+Module 8: Low-Level Design (LLD)
+This is particularly important for Java developers.
+- OOP Principles
+- SOLID Principles
+- Composition vs Inheritance
+- Interfaces and Abstract Classes
+- UML Class Diagrams
+- Association, Aggregation and Composition
+- Dependency Injection
+- Design Patterns:
+  - Singleton
+  - Factory
+  - Strategy
+  - Observer
+  - Builder
+  - Adapter
+  - Decorator
+  - Repository
+Practical LLD questions:
+1. Design a Parking Lot.
+2. Design a Library Management System.
+3. Design an Elevator System.
+4. Design a Movie Ticket Booking System.
+5. Design an ATM.
+6. Design a Food Ordering System.
+7. Design a Notification Service.
+Module 9: High-Level Design (HLD)
+Learn to design complete applications.
+- Requirement Gathering
+- Functional vs Non-Functional Requirements
+- Capacity Estimation
+- API Design
+- Database Schema Design
+- Architecture Diagrams
+- Component Communication
+- Scalability Planning
+- Security
+- Monitoring and Logging
+- Failure Handling
+Important HLD questions:
+1. Design URL Shortener (like Bitly).
+2. Design WhatsApp.
+3. Design Instagram.
+4. Design YouTube.
+5. Design Uber.
+6. Design Netflix.
+7. Design E-commerce Application.
+8. Design Payment Gateway.
+9. Design Notification System.
+10. Design File Storage System (like Google Drive).
+Module 10: Java-Specific System Design
+These topics will help connect system design concepts with your Java backend development.
+- Spring Boot Application Architecture
+- Spring Security and JWT
+- Spring Cloud
+- Spring Cloud Gateway
+- Eureka Service Discovery
+- Resilience4j
+- Spring Data JPA
+- HikariCP Connection Pooling
+- Redis Integration
+- Kafka Integration
+- Spring Boot Actuator
+- Centralized Logging
+
+
+
+
